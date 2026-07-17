@@ -19,7 +19,7 @@
     --bg:#ffffff;
     --bg-soft:#f7f9fa;
     --border:#e5e7eb;
-    --nav-h:100px;
+    --nav-h:130px;
     --font:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif;
   }
   html{scroll-behavior:smooth}
@@ -30,7 +30,7 @@
   /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 40px;box-shadow:0 1px 12px rgba(0,0,0,0.03)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1280px;margin:0 auto}
-  .nav-logo img{height:78px;width:auto}
+  .nav-logo img{height:110px !important;width:auto;display:block}
   .nav-links{display:flex;align-items:center;gap:34px}
   .nav-links a{font-size:14px;font-weight:600;color:#333;transition:color .2s;letter-spacing:.01em}
   .nav-links a:hover{color:var(--teal)}
@@ -187,9 +187,9 @@
 
   /* MOBILE */
   @media(max-width:900px){
-    .nav{padding:0 20px;height:76px}
-    :root{--nav-h:76px}
-    .nav-logo img{height:58px}
+    .nav{padding:0 20px;height:88px}
+    :root{--nav-h:88px}
+    .nav-logo img{height:68px !important}
     .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;background:#fff;padding:20px;gap:0;border-bottom:1px solid var(--border);align-items:stretch;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
     .nav-links.open{display:flex}
     .nav-links a{padding:14px 4px;border-bottom:1px solid var(--border);font-size:15px}
@@ -227,7 +227,7 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo"><img src="assets/logo-luvasa.png" alt="Luvasa"></a>
+    <a href="#top" class="nav-logo"><img src="assets/logo-luvasa.png?v=3" alt="Luvasa"></a>
     <div class="nav-links" id="navLinks">
       <a href="nosotros.html">Nosotros</a>
       <a href="#contacto" class="nav-cta">Contacto</a>
@@ -244,12 +244,12 @@
     <div class="hero-visual">
       <div class="hero-visual-frame"></div>
       <div class="hero-visual-photo">
-        <img src="assets/img/hero-familia.jpg" alt="Familia Luvasa" loading="eager">
+        <img src="assets/img/hero-familia.jpg?v=2" alt="Familia Luvasa" loading="eager">
       </div>
       <div class="hero-visual-dot"></div>
     </div>
     <div class="hero-content">
-      <img src="assets/logo-luvasa.png" alt="Luvasa" class="hero-big-logo">
+      <img src="assets/logo-luvasa.png?v=3" alt="Luvasa" class="hero-big-logo">
       <span class="hero-eyebrow-small">Estamos</span>
       <h1 class="hero-tagline"><span class="accent-dark">Más</span> <span class="accent-light">cerca de ti</span></h1>
       <p class="hero-sub">Más que agentes de seguros. Guardianes de tu patrimonio y tu tranquilidad, con atención única y exclusiva en autos, gastos médicos y daños.</p>
@@ -454,7 +454,7 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="assets/logo-luvasa.png" alt="Luvasa">
+      <img src="assets/logo-luvasa.png?v=3" alt="Luvasa">
       <p>Guardianes de tu patrimonio y tranquilidad. Autos, Gastos Médicos y Daños con atención única y exclusiva.</p>
     </div>
     <div class="footer-col">
