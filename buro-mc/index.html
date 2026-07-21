@@ -184,16 +184,20 @@
   .doc.is-video .doc-viewer.is-portrait{max-width:520px}
   .doc.is-download .doc-head{border-bottom:none;padding-bottom:34px}
 
-  /* Mobile PDF viewer — pages rendered client-side via PDF.js (iOS Safari no soporta PDFs en iframe) */
-  .doc-viewer.is-mobile-pdf{background:linear-gradient(180deg,#eef2f5,#dfe6eb) !important;aspect-ratio:auto !important;height:auto !important;min-height:320px;box-shadow:0 20px 40px -14px rgba(14,42,52,0.35);display:block}
+  /* Mobile PDF viewer — solo portada (página 1) renderizada como imagen vía PDF.js */
+  .doc-viewer.is-mobile-pdf{background:transparent !important;aspect-ratio:auto !important;height:auto !important;box-shadow:none;display:block}
   .doc-viewer.is-mobile-pdf iframe{display:none !important}
-  .doc-viewer.is-mobile-pdf .doc-viewer-loading{position:relative;inset:auto;padding:80px 20px;background:transparent;color:#4a5560;min-height:320px}
+  .doc-viewer.is-mobile-pdf .doc-viewer-loading{position:relative;inset:auto;padding:70px 20px;background:linear-gradient(180deg,#eef2f5,#dfe6eb);color:#4a5560;min-height:220px;border-radius:10px}
   .doc-viewer.is-mobile-pdf .doc-viewer-loading .loader{border-color:rgba(14,42,52,0.15);border-top-color:var(--teal-dark)}
-  .pdf-pages{display:flex;flex-direction:column;gap:10px;padding:10px}
-  .pdf-page{background:#fff;box-shadow:0 3px 10px rgba(14,42,52,0.18);border-radius:4px;overflow:hidden;position:relative}
+  /* Cuando el loader se oculta, colapsa por completo — no dejar espacio vacío */
+  .doc-viewer.is-mobile-pdf .doc-viewer-loading.hidden{display:none;padding:0;min-height:0}
+  .pdf-pages{display:block;padding:0}
+  .pdf-page{background:#fff;box-shadow:0 20px 40px -14px rgba(14,42,52,0.35);border-radius:10px;overflow:hidden;position:relative}
   .pdf-page canvas{display:block;width:100%;height:auto}
-  .pdf-page-num{position:absolute;top:6px;right:8px;font-size:10px;font-weight:700;color:#fff;background:rgba(14,42,52,0.6);padding:2px 8px;border-radius:980px;letter-spacing:.06em}
-  .pdf-error{color:#4a5560;text-align:center;padding:40px 20px;font-size:13.5px;line-height:1.6}
+  .pdf-page-num{position:absolute;top:8px;right:10px;font-size:10.5px;font-weight:700;color:#fff;background:rgba(14,42,52,0.72);padding:3px 10px;border-radius:980px;letter-spacing:.06em;backdrop-filter:blur(6px)}
+  .pdf-more-hint{margin-top:12px;text-align:center;font-size:11.5px;color:var(--muted);letter-spacing:.06em;font-weight:600}
+  .pdf-more-hint strong{color:var(--navy-dark);font-weight:700}
+  .pdf-error{color:#4a5560;text-align:center;padding:40px 20px;font-size:13.5px;line-height:1.6;background:linear-gradient(180deg,#eef2f5,#dfe6eb);border-radius:10px}
   .pdf-error a{color:var(--teal-dark);font-weight:700;text-decoration:underline}
   .pdf-error-btn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 22px;border-radius:980px;background:var(--navy-dark);color:#fff !important;font-weight:700;text-decoration:none !important;font-size:13.5px}
 
@@ -564,15 +568,15 @@ const PORTAL_CONFIG = {
       var containerWidth = pagesContainer.clientWidth;
       if (!containerWidth) containerWidth = (viewerEl.clientWidth || 340) - 20;
       if (containerWidth < 200) containerWidth = 300;
-      // Render secuencial para no saturar CPU/memoria en móvil.
-      var chain = Promise.resolve();
-      for (var i = 1; i <= pdf.numPages; i++){
-        (function(pageNum){
-          chain = chain.then(function(){
-            return renderPdfPage(pdf, pageNum, pagesContainer, containerWidth);
-          }).catch(function(e){ console.warn('[Luvasa Portal] Página '+pageNum+' falló', e); });
-        })(i);
-      }
+      // Vista previa móvil: SOLO la portada (página 1). Para ver el resto, usar "Abrir en pestaña".
+      renderPdfPage(pdf, 1, pagesContainer, containerWidth).then(function(){
+        if (pdf.numPages > 1){
+          var hint = document.createElement('div');
+          hint.className = 'pdf-more-hint';
+          hint.innerHTML = 'Portada · <strong>' + pdf.numPages + ' páginas en total</strong> — abre en pestaña para ver todo';
+          viewerEl.appendChild(hint);
+        }
+      }).catch(function(e){ console.warn('[Luvasa Portal] Página 1 falló', e); });
     }).catch(function(err){
       console.error('[Luvasa Portal] Error PDF:', err);
       if (loadingEl) loadingEl.classList.add('hidden');
