@@ -184,6 +184,19 @@
   .doc.is-video .doc-viewer.is-portrait{max-width:520px}
   .doc.is-download .doc-head{border-bottom:none;padding-bottom:34px}
 
+  /* Mobile PDF viewer — pages rendered client-side via PDF.js (iOS Safari no soporta PDFs en iframe) */
+  .doc-viewer.is-mobile-pdf{background:linear-gradient(180deg,#eef2f5,#dfe6eb) !important;aspect-ratio:auto !important;height:auto !important;min-height:320px;box-shadow:0 20px 40px -14px rgba(14,42,52,0.35);display:block}
+  .doc-viewer.is-mobile-pdf iframe{display:none !important}
+  .doc-viewer.is-mobile-pdf .doc-viewer-loading{position:relative;inset:auto;padding:80px 20px;background:transparent;color:#4a5560;min-height:320px}
+  .doc-viewer.is-mobile-pdf .doc-viewer-loading .loader{border-color:rgba(14,42,52,0.15);border-top-color:var(--teal-dark)}
+  .pdf-pages{display:flex;flex-direction:column;gap:10px;padding:10px}
+  .pdf-page{background:#fff;box-shadow:0 3px 10px rgba(14,42,52,0.18);border-radius:4px;overflow:hidden;position:relative}
+  .pdf-page canvas{display:block;width:100%;height:auto}
+  .pdf-page-num{position:absolute;top:6px;right:8px;font-size:10px;font-weight:700;color:#fff;background:rgba(14,42,52,0.6);padding:2px 8px;border-radius:980px;letter-spacing:.06em}
+  .pdf-error{color:#4a5560;text-align:center;padding:40px 20px;font-size:13.5px;line-height:1.6}
+  .pdf-error a{color:var(--teal-dark);font-weight:700;text-decoration:underline}
+  .pdf-error-btn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 22px;border-radius:980px;background:var(--navy-dark);color:#fff !important;font-weight:700;text-decoration:none !important;font-size:13.5px}
+
   /* Portada premium del video */
   .video-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:opacity .5s cubic-bezier(.22,.61,.36,1),transform .5s cubic-bezier(.22,.61,.36,1);z-index:2;background:
     radial-gradient(ellipse 70% 55% at 50% 45%,rgba(239,83,80,0.28) 0%,transparent 70%),
@@ -252,28 +265,123 @@
   .footer strong{color:var(--teal);font-weight:600}
   .footer a{color:var(--teal);text-decoration:none}
 
-  /* ============ MOBILE ============ */
+  /* ============ MOBILE — tablet & large phone ============ */
   @media(max-width:768px){
-    .nav{padding:0 18px;height:64px}
+    .nav{padding:0 18px;height:64px;gap:12px}
     :root{--nav-h:64px}
-    .nav-logo img{height:36px}
-    .nav-client{font-size:11px;padding-left:14px}
-    .banner{padding:60px 20px 80px}
-    .banner-title{font-size:clamp(56px,18vw,120px)}
+    .nav-inner{gap:12px}
+    .nav-logo img{height:34px}
+    .nav-client{font-size:11px;padding-left:12px;gap:10px}
+    .nav-client-logo{max-height:26px;max-width:90px}
+    .nav-client-label-eyebrow{font-size:8.5px;letter-spacing:.18em}
+    .nav-client-label-name{font-size:11.5px}
+    .nav-logout{padding:8px 12px;font-size:12px;min-height:40px}
+    .nav-logout span,.nav-logout{gap:4px}
+    .banner{padding:56px 20px 72px}
+    .banner-eyebrow{font-size:11px;letter-spacing:.24em;padding:7px 16px;margin-bottom:20px}
+    .banner-title{font-size:clamp(52px,16vw,110px);letter-spacing:-.05em}
+    .banner-tagline{font-size:clamp(20px,4.4vw,32px);margin-bottom:14px}
+    .banner-sub{font-size:14.5px;line-height:1.65}
+    .banner-scroll{margin-top:30px;font-size:10.5px;letter-spacing:.2em}
+    .banner-logo-band{padding:30px 20px}
+    .banner-logo{max-height:76px;max-width:70vw}
     .documents{padding:0 16px 70px;margin-top:-30px}
     .documents-list{gap:36px}
-    .files{padding:60px 18px 80px}
-    .files-header{margin-bottom:30px}
-    .doc-head{padding:24px 20px 22px;gap:14px}
+    .doc{border-radius:20px}
+    .doc-head{padding:26px 20px 24px;gap:14px}
+    .doc-cat{font-size:10px;letter-spacing:.18em;padding:4px 11px;margin-bottom:12px}
     .doc-title{font-size:16px;letter-spacing:.03em}
-    .doc-title::after{width:48px;margin-top:10px}
-    .doc-actions{width:100%}
-    .doc-btn{flex:1;justify-content:center;padding:10px 14px;font-size:12.5px}
+    .doc-title::after{width:48px;margin-top:10px;height:2.5px}
+    .doc-sub{font-size:10.5px;margin-top:12px;letter-spacing:.12em}
+    .doc-sub .dot{margin:0 8px}
+    .doc-actions{width:100%;gap:8px}
+    .doc-btn{flex:1;justify-content:center;padding:12px 14px;font-size:12.5px;min-height:44px}
     .doc-viewer-wrap{padding:12px}
-    .gate-card{padding:34px 26px 30px}
+    .files{padding:60px 18px 88px}
+    .files-header{margin-bottom:32px}
+    .files-eyebrow{font-size:10.5px;letter-spacing:.24em}
+    .files-title{font-size:clamp(24px,5.4vw,32px)}
+    .files-sub{font-size:14px}
+    .files-grid{grid-template-columns:1fr;gap:14px}
+    .file-card{padding:18px;border-radius:16px;gap:14px}
+    .file-icon{width:44px;height:44px}
+    .file-title{font-size:13.5px}
+    .file-btn{padding:9px 14px;min-height:40px}
+    .footer{padding:32px 20px calc(32px + env(safe-area-inset-bottom));font-size:12px;line-height:1.7}
+    .gate{padding:20px}
+    .gate-card{padding:34px 26px 28px;border-radius:22px}
+    .gate-icon{width:52px;height:52px;margin-bottom:18px}
+    .gate-eyebrow{font-size:10.5px;letter-spacing:.24em}
     .gate-title{font-size:22px}
+    .gate-sub{font-size:13.5px;margin-bottom:24px}
+    .gate-input{padding:14px 48px 14px 20px;font-size:15px;min-height:50px}
+    .gate-btn{padding:15px 26px;font-size:14.5px;min-height:50px}
     .gate-strip{margin:-34px -26px 22px;padding:22px 22px;min-height:88px}
     .gate-client-logo{max-height:48px}
+  }
+
+  /* ============ MOBILE — phone tight (≤480px) ============ */
+  @media(max-width:480px){
+    .nav{padding:0 14px;height:60px}
+    :root{--nav-h:60px}
+    .nav-logo img{height:30px}
+    .nav-client{padding-left:10px;gap:8px}
+    .nav-client-logo{max-height:22px;max-width:72px}
+    .nav-client-label-eyebrow{display:none}
+    .nav-client-label-name{font-size:11px}
+    .nav-logout{padding:8px 10px;font-size:11px}
+    .nav-logout svg{width:12px;height:12px}
+    .banner{padding:48px 16px 64px}
+    .banner-eyebrow{font-size:10px;letter-spacing:.2em;padding:6px 14px;margin-bottom:18px;gap:8px}
+    .banner-eyebrow::before,.banner-eyebrow::after{width:12px}
+    .banner-title{font-size:clamp(44px,14vw,72px)}
+    .banner-tagline{font-size:20px;margin-bottom:12px}
+    .banner-sub{font-size:14px}
+    .banner-scroll{margin-top:26px}
+    .banner-logo-band{padding:26px 18px}
+    .banner-logo{max-height:64px;max-width:72vw}
+    .documents{padding:0 12px 56px;margin-top:-24px}
+    .documents-list{gap:28px}
+    .doc{border-radius:18px}
+    .doc-head{padding:22px 16px 20px;gap:12px}
+    .doc-title{font-size:15px;letter-spacing:.02em}
+    .doc-actions{flex-direction:column;width:100%}
+    .doc-btn{width:100%;padding:12px 16px;font-size:13px;min-height:46px}
+    .doc-viewer-wrap{padding:8px}
+    .doc-viewer{border-radius:10px}
+    .files{padding:48px 14px 72px}
+    .files-header{margin-bottom:28px}
+    .files-title{font-size:24px}
+    .file-card{padding:16px;border-radius:14px;gap:12px}
+    .file-icon{width:40px;height:40px;font-size:9px}
+    .file-cat{font-size:9.5px;letter-spacing:.14em;padding:3px 9px}
+    .file-title{font-size:13px}
+    .file-meta{font-size:11px}
+    .file-actions{gap:6px;margin-top:10px}
+    .file-btn{flex:1;justify-content:center;padding:10px 12px;font-size:11.5px}
+    .footer{padding:26px 16px calc(26px + env(safe-area-inset-bottom));font-size:11.5px}
+    .gate{padding:16px}
+    .gate-card{padding:30px 22px 26px;border-radius:20px}
+    .gate-icon{width:48px;height:48px;margin-bottom:16px;border-radius:14px}
+    .gate-icon svg{width:20px;height:20px}
+    .gate-eyebrow{font-size:10px;letter-spacing:.2em;margin-bottom:10px}
+    .gate-title{font-size:20px}
+    .gate-sub{font-size:13px;margin-bottom:22px}
+    .gate-input{padding:13px 44px 13px 18px;font-size:15px;min-height:48px}
+    .gate-input-toggle{width:34px;height:34px;right:6px}
+    .gate-input-toggle svg{width:16px;height:16px}
+    .gate-btn{padding:14px 22px;font-size:14px;min-height:48px}
+    .gate-error{font-size:12.5px;margin-top:12px}
+    .gate-footer{margin-top:22px;padding-top:18px;font-size:11px}
+    .gate-strip{margin:-30px -22px 20px;padding:20px 18px;min-height:78px}
+    .gate-client-logo{max-height:42px}
+    .video-poster-inner{padding:16px 18px;max-width:88%}
+    .video-poster-play{width:56px;height:56px}
+    .video-poster-play svg{width:22px;height:22px}
+    .video-poster-title{font-size:16px;letter-spacing:.03em}
+    .video-poster-title::after{width:48px;margin-top:10px;height:2px}
+    .video-poster-cat{font-size:9.5px;letter-spacing:.24em;padding:4px 12px;margin-bottom:14px}
+    .video-poster-meta{font-size:10px;letter-spacing:.16em;margin-top:10px;margin-bottom:18px}
   }
 </style>
 </head>
@@ -410,6 +518,100 @@ const PORTAL_CONFIG = {
 /* ========================================================== */
 
 (function(){
+  // ---------- Mobile detection + PDF.js loader (declared early — usado en initPortal) ----------
+  var IS_MOBILE_PDF = !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+  var PDFJS_VER = '3.11.174';
+  var PDFJS_BASE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@' + PDFJS_VER + '/build/';
+  var _pdfjsPromise = null;
+  function loadPdfJs(){
+    if (_pdfjsPromise) return _pdfjsPromise;
+    _pdfjsPromise = new Promise(function(resolve, reject){
+      if (window.pdfjsLib){
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+        resolve(window.pdfjsLib);
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = PDFJS_BASE + 'pdf.min.js';
+      s.async = true;
+      s.onload = function(){
+        if (!window.pdfjsLib){ reject(new Error('pdfjsLib no cargó')); return; }
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+        resolve(window.pdfjsLib);
+      };
+      s.onerror = function(){ reject(new Error('No se pudo cargar PDF.js')); };
+      document.head.appendChild(s);
+    });
+    return _pdfjsPromise;
+  }
+  // Precargamos PDF.js apenas se abra el portal (móvil) para que esté listo cuando el usuario haga scroll.
+  if (IS_MOBILE_PDF) { loadPdfJs().catch(function(){}); }
+
+  function renderPdfMobile(viewerEl, loadingEl, url){
+    // Aseguramos la clase y removemos aspect-ratio inline (defensa por si el HTML no lo aplicó).
+    viewerEl.classList.add('is-mobile-pdf');
+    viewerEl.style.aspectRatio = 'auto';
+    var iframeEl = viewerEl.querySelector('iframe');
+    if (iframeEl) iframeEl.remove();
+
+    loadPdfJs().then(function(pdfjsLib){
+      var task = pdfjsLib.getDocument({ url: url, disableRange: false, disableStream: false });
+      return task.promise;
+    }).then(function(pdf){
+      var pagesContainer = document.createElement('div');
+      pagesContainer.className = 'pdf-pages';
+      viewerEl.appendChild(pagesContainer);
+      if (loadingEl) loadingEl.classList.add('hidden');
+      // Ancho objetivo — usa el ancho del contenedor de páginas (10px padding a cada lado).
+      var containerWidth = pagesContainer.clientWidth;
+      if (!containerWidth) containerWidth = (viewerEl.clientWidth || 340) - 20;
+      if (containerWidth < 200) containerWidth = 300;
+      // Render secuencial para no saturar CPU/memoria en móvil.
+      var chain = Promise.resolve();
+      for (var i = 1; i <= pdf.numPages; i++){
+        (function(pageNum){
+          chain = chain.then(function(){
+            return renderPdfPage(pdf, pageNum, pagesContainer, containerWidth);
+          }).catch(function(e){ console.warn('[Luvasa Portal] Página '+pageNum+' falló', e); });
+        })(i);
+      }
+    }).catch(function(err){
+      console.error('[Luvasa Portal] Error PDF:', err);
+      if (loadingEl) loadingEl.classList.add('hidden');
+      var errEl = document.createElement('div');
+      errEl.className = 'pdf-error';
+      errEl.innerHTML =
+        'No se pudo cargar la vista previa del PDF.<br>' +
+        '<a class="pdf-error-btn" href="' + url + '" target="_blank" rel="noopener">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
+          'Abrir PDF' +
+        '</a>';
+      viewerEl.appendChild(errEl);
+    });
+  }
+  function renderPdfPage(pdf, num, container, containerWidth){
+    return pdf.getPage(num).then(function(page){
+      var unscaled = page.getViewport({ scale: 1 });
+      var scale = containerWidth / unscaled.width;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var viewport = page.getViewport({ scale: scale * dpr });
+      var wrapper = document.createElement('div');
+      wrapper.className = 'pdf-page';
+      var canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+      var badge = document.createElement('span');
+      badge.className = 'pdf-page-num';
+      badge.textContent = num + ' / ' + pdf.numPages;
+      wrapper.appendChild(canvas);
+      wrapper.appendChild(badge);
+      container.appendChild(wrapper);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+    });
+  }
+
   // ---------- Config apply ----------
   document.title = 'Portal ' + PORTAL_CONFIG.clientName + ' · Luvasa';
   document.getElementById('gateClient').textContent = PORTAL_CONFIG.clientName;
@@ -607,6 +809,10 @@ const PORTAL_CONFIG = {
               '</button>' +
             '</div>' +
           '</div>';
+      } else if (IS_MOBILE_PDF) {
+        // Mobile PDF: no iframe (iOS Safari lo renderiza pixelado). PDF.js llenará el contenedor.
+        mediaHtml =
+          '<div class="doc-viewer-loading"><div class="loader"></div><div>Cargando vista previa</div></div>';
       } else {
         mediaHtml =
           '<div class="doc-viewer-loading"><div class="loader"></div><div>Cargando</div></div>' +
@@ -624,9 +830,13 @@ const PORTAL_CONFIG = {
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
           'Descargar' +
         '</a>';
+      // En móvil (PDF), no fijamos aspect-ratio inline: el alto lo definen las páginas renderizadas.
+      var isMobilePdfDoc = IS_MOBILE_PDF && !isVideo && !isDownload;
+      var viewerCls = 'doc-viewer' + portraitClass + (isMobilePdfDoc ? ' is-mobile-pdf' : '');
+      var viewerStyle = isMobilePdfDoc ? '' : (' style="aspect-ratio:' + w + '/' + h + '"');
       var viewerHtml = isDownload ? '' :
         '<div class="doc-viewer-wrap">' +
-          '<div class="doc-viewer' + portraitClass + '" style="aspect-ratio:' + w + '/' + h + '">' +
+          '<div class="' + viewerCls + '"' + viewerStyle + '>' +
             mediaHtml +
           '</div>' +
         '</div>';
@@ -681,15 +891,20 @@ const PORTAL_CONFIG = {
       }
 
       var iframe = article.querySelector('iframe');
+      var viewerEl = article.querySelector('.doc-viewer');
       var loadingEl = article.querySelector('.doc-viewer-loading');
       var loaded = false;
       function loadFrame(){
         if (loaded) return;
         loaded = true;
-        iframe.src = doc.file + '#view=FitH&toolbar=1';
-        iframe.addEventListener('load', function(){
-          loadingEl.classList.add('hidden');
-        });
+        if (IS_MOBILE_PDF){
+          renderPdfMobile(viewerEl, loadingEl, doc.file);
+        } else {
+          iframe.src = doc.file + '#view=FitH&toolbar=1';
+          iframe.addEventListener('load', function(){
+            loadingEl.classList.add('hidden');
+          });
+        }
       }
       if ('IntersectionObserver' in window){
         var io = new IntersectionObserver(function(entries){
