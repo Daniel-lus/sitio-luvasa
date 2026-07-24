@@ -11,9 +11,9 @@
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --teal:#00B7C4;
-    --teal-dark:#008691;
-    --teal-light:#e6f9fa;
+    --teal:#0072AB;
+    --teal-dark:#004E74;
+    --teal-light:#e6f2f8;
     --navy:#1e3a4a;
     --navy-dark:#0e2a34;
     --text:#1a1a1a;
@@ -37,8 +37,8 @@
   .nav-links{display:flex;align-items:center;gap:38px}
   .nav-links a{font-size:14px;font-weight:500;color:#2b2b2b;transition:color .2s}
   .nav-links a:hover{color:var(--teal-dark)}
-  .nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:980px;background:var(--teal-dark);color:#fff !important;font-size:13.5px;font-weight:600;transition:all .25s;box-shadow:0 2px 8px rgba(0,134,145,0.18)}
-  .nav-cta:hover{background:var(--teal);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,183,196,0.3)}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:980px;background:var(--teal-dark);color:#fff !important;font-size:13.5px;font-weight:600;transition:all .25s;box-shadow:0 2px 8px rgba(0,78,116,0.18)}
+  .nav-cta:hover{background:var(--teal);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,114,171,0.3)}
 
   /* PAGE */
   .page{padding:calc(var(--nav-h) + 40px) 24px 80px;min-height:100vh;background:linear-gradient(180deg,#fafbfc 0%,#f4f6f8 100%)}
@@ -61,7 +61,7 @@
   .field-input,.field-textarea{width:100%;padding:14px 22px;border:1.5px solid var(--navy);border-radius:980px;background:#fff;font-family:var(--font);font-size:14.5px;font-weight:500;color:var(--text);transition:all .2s;outline:none;-webkit-appearance:none;appearance:none}
   .field-input::placeholder,.field-textarea::placeholder{color:#a8b0b8;font-weight:400}
   .field-input:hover,.field-textarea:hover{border-color:var(--teal-dark)}
-  .field-input:focus,.field-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,183,196,0.15)}
+  .field-input:focus,.field-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,114,171,0.15)}
   .field-textarea{border-radius:22px;padding:16px 22px;min-height:110px;resize:vertical;line-height:1.55}
   input[type="date"].field-input{padding-right:18px;color:var(--text)}
   input[type="date"].field-input:invalid{color:#a8b0b8}
@@ -88,7 +88,7 @@
 
   /* SUBMIT */
   .submit-btn{margin-top:8px;padding:18px 32px;border-radius:980px;background:var(--navy-dark);color:#fff;font-family:var(--font);font-size:15.5px;font-weight:700;letter-spacing:.01em;border:none;cursor:pointer;transition:all .25s cubic-bezier(.22,.61,.36,1);box-shadow:0 10px 24px -8px rgba(14,42,52,0.4);display:inline-flex;align-items:center;justify-content:center;gap:10px}
-  .submit-btn:hover:not(:disabled){background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(0,134,145,0.5)}
+  .submit-btn:hover:not(:disabled){background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(0,78,116,0.5)}
   .submit-btn:disabled{opacity:.7;cursor:not-allowed}
   .submit-btn .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
   .submit-btn.is-loading .spinner{display:inline-block}
