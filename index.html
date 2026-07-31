@@ -114,6 +114,64 @@
   .srv-link .srv-link-arrow{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);transition:transform .3s cubic-bezier(.22,.61,.36,1)}
   .srv-link:hover .srv-link-arrow{transform:translateX(4px);background:rgba(255,255,255,0.25)}
 
+  /* Segment toggle Empresa / Individual — full-card inversion */
+  .srv-card{transition:background .5s cubic-bezier(.22,.61,.36,1),color .4s ease,border-color .4s ease,transform .4s cubic-bezier(.22,.61,.36,1),box-shadow .4s cubic-bezier(.22,.61,.36,1)}
+  .srv-toggle{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;background:#f2f5f8;border:1px solid rgba(14,42,52,0.08);border-radius:12px;padding:4px;margin-bottom:22px;z-index:2;box-shadow:inset 0 1px 2px rgba(14,42,52,0.04);transition:background .4s ease,border-color .4s ease}
+  .srv-toggle-thumb{position:absolute;top:4px;left:4px;width:calc(50% - 4px);height:calc(100% - 8px);border-radius:9px;background:linear-gradient(135deg,var(--teal) 0%,#3a95c9 100%);box-shadow:0 4px 14px -4px rgba(0,114,171,0.5),0 2px 4px rgba(0,114,171,0.15);transition:transform .42s cubic-bezier(.65,.05,.36,1),background .4s ease;z-index:1;pointer-events:none}
+  .srv-card[data-mode="individual"] .srv-toggle-thumb{transform:translateX(100%)}
+  .srv-card[data-mode="empresa"] .srv-toggle-thumb{background:linear-gradient(135deg,#e6f2f8 0%,#ffffff 100%);box-shadow:0 4px 14px -4px rgba(0,0,0,0.28),0 2px 4px rgba(255,255,255,0.15)}
+  .srv-tab{position:relative;z-index:2;background:transparent;border:none;padding:10px 12px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.02em;color:#6b7280;cursor:pointer;border-radius:9px;transition:color .3s ease;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+  .srv-tab:hover{color:var(--teal-dark)}
+  .srv-tab .srv-tab-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.35;transition:all .3s ease}
+  .srv-card[data-mode="individual"] .srv-tab[data-target="individual"]{color:#fff}
+  .srv-card[data-mode="individual"] .srv-tab[data-target="individual"] .srv-tab-dot{opacity:1;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,0.22)}
+  .srv-card[data-mode="empresa"] .srv-tab[data-target="empresa"]{color:var(--teal-dark)}
+  .srv-card[data-mode="empresa"] .srv-tab[data-target="empresa"] .srv-tab-dot{opacity:1;background:var(--teal-dark);box-shadow:0 0 0 3px rgba(0,78,116,0.22)}
+
+  /* Panes stack — animated height */
+  .srv-panes{position:relative;transition:height .4s cubic-bezier(.22,.61,.36,1);display:flex;flex-direction:column;flex:1}
+  .srv-pane{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .32s ease,transform .38s cubic-bezier(.22,.61,.36,1),visibility 0s linear .4s;pointer-events:none}
+  .srv-pane.is-active{position:relative;opacity:1;visibility:visible;transform:translateY(0);transition:opacity .35s ease .08s,transform .4s cubic-bezier(.22,.61,.36,1) .08s,visibility 0s linear 0s;pointer-events:auto;flex:1}
+  .srv-pane .srv-lead{margin-bottom:22px;transition:color .4s ease}
+  .srv-pane .srv-list{margin-bottom:28px;transition:border-color .4s ease}
+
+  /* Small “tip” chip above lead */
+  .srv-mode-tip{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-dark);opacity:.85;margin-bottom:14px;transition:color .4s ease}
+  .srv-mode-tip::before{content:'';width:18px;height:1.5px;background:currentColor;border-radius:2px}
+
+  /* ========== INDIVIDUAL mode (light card — default look) ========== */
+  .srv-card[data-mode="individual"]::before{transform:scaleX(1);background:linear-gradient(90deg,var(--teal-dark),var(--teal))}
+  .srv-card[data-mode="individual"] .srv-link{background:linear-gradient(135deg,var(--teal-dark) 0%,var(--teal) 100%);border-color:transparent}
+  .srv-card[data-mode="individual"] .srv-link:hover{background:linear-gradient(135deg,var(--teal) 0%,#3a95c9 100%);box-shadow:0 14px 32px -8px rgba(0,114,171,0.55)}
+
+  /* ========== EMPRESA mode (full dark card inversion) ========== */
+  .srv-card[data-mode="empresa"]{background:linear-gradient(160deg,#0e2a34 0%,#173948 55%,#1e4152 100%);border-color:transparent;color:#fff;box-shadow:0 30px 60px -20px rgba(14,42,52,0.5),0 8px 20px -8px rgba(0,0,0,0.25)}
+  .srv-card[data-mode="empresa"]:hover{box-shadow:0 40px 80px -20px rgba(14,42,52,0.6),0 12px 26px -8px rgba(0,0,0,0.3)}
+  .srv-card[data-mode="empresa"]::before{transform:scaleX(1);background:linear-gradient(90deg,var(--teal) 0%,#4fbaea 100%);height:3px;opacity:.9}
+  .srv-card[data-mode="empresa"]::after{opacity:1;background:radial-gradient(circle,rgba(79,186,234,0.14),transparent 65%)}
+  .srv-card[data-mode="empresa"] .srv-num{color:#fff;opacity:.55}
+  .srv-card[data-mode="empresa"] .srv-title{color:#fff}
+  .srv-card[data-mode="empresa"] .srv-icon{background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04));color:#fff;border-color:rgba(255,255,255,0.18);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15)}
+  .srv-card[data-mode="empresa"]:hover .srv-icon{background:linear-gradient(135deg,var(--teal) 0%,#4fbaea 100%);color:#fff;border-color:transparent;transform:rotate(-4deg) scale(1.08);box-shadow:0 12px 28px -6px rgba(79,186,234,0.55),inset 0 1px 0 rgba(255,255,255,0.25)}
+  .srv-card[data-mode="empresa"] .srv-lead{color:rgba(255,255,255,0.78)}
+  .srv-card[data-mode="empresa"] .srv-list{border-top-color:rgba(255,255,255,0.14)}
+  .srv-card[data-mode="empresa"] .srv-list li{color:rgba(255,255,255,0.92)}
+  .srv-card[data-mode="empresa"] .srv-list{padding-top:20px;border-top-color:rgba(255,255,255,0.1);gap:13px}
+  .srv-card[data-mode="empresa"] .srv-list li{gap:14px;font-weight:500;letter-spacing:.005em}
+  .srv-card[data-mode="empresa"] .srv-list li::before{background-color:transparent;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234fbaea' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");background-size:14px 14px;border:none;width:14px;height:14px;border-radius:0}
+  .srv-more{display:inline-flex;align-items:center;gap:6px;margin:2px 0 22px;font-size:12.5px;font-weight:500;letter-spacing:.02em;color:rgba(79,186,234,0.85);font-style:italic;padding-left:28px}
+  .srv-more::before{content:none}
+  .srv-card[data-mode="empresa"] .srv-toggle{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.14)}
+  .srv-card[data-mode="empresa"] .srv-tab{color:rgba(255,255,255,0.6)}
+  .srv-card[data-mode="empresa"] .srv-tab:hover{color:#fff}
+  .srv-card[data-mode="empresa"] .srv-mode-tip{color:#4fbaea}
+  .srv-card[data-mode="empresa"] .srv-link{background:linear-gradient(135deg,var(--teal) 0%,#4fbaea 100%);color:#fff !important;border:1px solid transparent;box-shadow:0 10px 24px -8px rgba(79,186,234,0.5),inset 0 1px 0 rgba(255,255,255,0.2)}
+  .srv-card[data-mode="empresa"] .srv-link:hover{background:linear-gradient(135deg,#4fbaea 0%,#7dd0f5 100%);color:#0e2a34 !important;transform:translateY(-2px);box-shadow:0 16px 34px -8px rgba(79,186,234,0.65),inset 0 1px 0 rgba(255,255,255,0.35)}
+  .srv-card[data-mode="empresa"] .srv-link .srv-link-arrow{background:rgba(255,255,255,0.22)}
+  .srv-card[data-mode="empresa"] .srv-link:hover .srv-link-arrow{background:rgba(14,42,52,0.15)}
+  .srv-card[data-mode="empresa"]::before{opacity:.6}
+  .srv-card[data-mode="empresa"] .srv-mode-tip{opacity:.75;font-weight:600}
+
   /* MARCAMOS LA DIFERENCIA — editorial hero band */
   .dif{background:#fff;padding:90px 40px}
   .dif-band{position:relative;background:linear-gradient(135deg,#0e2a34 0%,#1e3a4a 100%);border-radius:32px;padding:80px 64px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(14,42,52,0.35),0 12px 30px -8px rgba(14,42,52,0.15);max-width:1280px;margin:0 auto}
@@ -184,21 +242,43 @@
   .step:nth-child(4){transition-delay:.5s}
   .step:nth-child(5){transition-delay:.65s}
   .step-num{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;color:var(--teal-dark);letter-spacing:.14em;font-variant-numeric:tabular-nums;background:#fff;padding:3px 10px;border-radius:980px;border:1px solid rgba(0,78,116,0.2);z-index:2}
-  .step-icon{width:88px;height:88px;margin:26px auto 22px;border-radius:50%;background:#fff;border:1.5px solid rgba(0,78,116,0.15);display:flex;align-items:center;justify-content:center;color:var(--teal-dark);position:relative;transition:all .5s cubic-bezier(.22,.61,.36,1);box-shadow:0 12px 28px -8px rgba(14,42,52,0.1)}
-  .step:hover .step-icon{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;border-color:transparent;transform:scale(1.08) translateY(-4px);box-shadow:0 20px 44px -8px rgba(0,114,171,0.45)}
-  .step-icon svg{width:38px;height:38px;transition:transform .5s}
-  .step:hover .step-icon svg{transform:rotate(-6deg)}
-  .step-body{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 20px;box-shadow:0 4px 16px rgba(14,42,52,0.04);transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .35s ease,min-height .45s cubic-bezier(.22,.61,.36,1),padding .35s ease;min-height:90px;display:flex;flex-direction:column}
-  .step:hover .step-body{transform:translateY(-4px);box-shadow:0 20px 40px -12px rgba(14,42,52,0.15);border-color:rgba(0,78,116,0.25);min-height:170px}
-  .step-title{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-dark);margin-bottom:0;line-height:1.25;transition:margin-bottom .35s ease}
-  .step:hover .step-title{margin-bottom:10px}
-  .step-desc{font-size:13px;color:var(--muted);line-height:1.6;flex:1;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,.61,.36,1),opacity .35s ease .05s,margin .35s ease}
-  .step:hover .step-desc{max-height:260px;opacity:1}
-  .step-items{display:flex;flex-direction:column;gap:9px;margin-top:0;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,.61,.36,1),opacity .35s ease .05s,margin .35s ease}
-  .step:hover .step-items{max-height:200px;opacity:1;margin-top:14px}
-  .step-item{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--navy-dark);letter-spacing:-.005em}
-  .step-item-icon{width:22px;height:22px;flex-shrink:0;border-radius:7px;background:var(--teal-light);border:1px solid rgba(0,78,116,0.18);color:var(--teal-dark);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,78,116,0.1)}
-  .step-item-icon svg{width:12px;height:12px}
+  .step-icon{width:88px;height:88px;margin:26px auto 22px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark) 0%,var(--teal) 60%,#4fbaea 100%);border:none;display:flex;align-items:center;justify-content:center;color:#fff;position:relative;transition:all .5s cubic-bezier(.22,.61,.36,1);box-shadow:0 14px 32px -8px rgba(0,114,171,0.45),inset 0 1px 0 rgba(255,255,255,0.25),inset 0 -3px 8px rgba(0,42,64,0.25)}
+  .step-icon::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(0,114,171,0.35);opacity:.6;animation:stepRing 3.6s ease-in-out infinite}
+  .step-icon::after{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(0,114,171,0.18);opacity:0;animation:stepRingOuter 3.6s ease-in-out infinite;animation-delay:.6s}
+  .step:nth-child(2) .step-icon::before{animation-delay:.4s}
+  .step:nth-child(3) .step-icon::before{animation-delay:.8s}
+  .step:nth-child(4) .step-icon::before{animation-delay:1.2s}
+  .step:nth-child(5) .step-icon::before{animation-delay:1.6s}
+  .step:nth-child(2) .step-icon::after{animation-delay:1s}
+  .step:nth-child(3) .step-icon::after{animation-delay:1.4s}
+  .step:nth-child(4) .step-icon::after{animation-delay:1.8s}
+  .step:nth-child(5) .step-icon::after{animation-delay:2.2s}
+  @keyframes stepRing{0%,100%{transform:scale(.95);opacity:.35}50%{transform:scale(1.08);opacity:.7}}
+  @keyframes stepRingOuter{0%,100%{transform:scale(.9);opacity:0}50%{transform:scale(1.15);opacity:.5}}
+  .step:hover .step-icon{background:linear-gradient(135deg,#4fbaea 0%,var(--teal) 50%,var(--teal-dark) 100%);transform:scale(1.1) translateY(-6px) rotate(-3deg);box-shadow:0 24px 50px -8px rgba(0,114,171,0.65),inset 0 1px 0 rgba(255,255,255,0.35),0 0 0 6px rgba(79,186,234,0.15)}
+  .step:hover .step-icon::before{animation:none;opacity:.9;transform:scale(1.12);border-color:rgba(79,186,234,0.55)}
+  .step:hover .step-icon::after{animation:none;opacity:.7;transform:scale(1.22);border-color:rgba(79,186,234,0.35)}
+  .step-icon svg{width:38px;height:38px;transition:transform .5s cubic-bezier(.22,.61,.36,1);position:relative;z-index:1;filter:drop-shadow(0 2px 4px rgba(0,42,64,0.25))}
+  .step:hover .step-icon svg{transform:rotate(6deg) scale(1.08)}
+  .step-body{background:transparent;border:none;border-radius:0;padding:8px 12px 0;box-shadow:none;transition:transform .35s cubic-bezier(.22,.61,.36,1);display:flex;flex-direction:column;gap:10px;text-align:center;position:relative}
+  .step:hover .step-body{transform:translateY(-3px)}
+  .step-actor{display:inline-flex;align-items:center;gap:6px;align-self:center;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1;color:var(--muted)}
+  .step-actor::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+  .step-actor[data-actor="cliente"]{color:var(--teal-dark)}
+  .step-actor[data-actor="luvasa"]{color:var(--teal-dark)}
+  .step-actor[data-actor="luvasa"]::before{background:var(--teal);box-shadow:0 0 0 3px rgba(0,114,171,0.15)}
+  .step-actor[data-actor="externo"]{color:#8a94a0}
+  .step-title{font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-dark);line-height:1.25;text-align:center}
+  .step-desc{font-size:13px;color:var(--muted);line-height:1.6;text-align:center;margin:0}
+  .step-tip{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:2px auto 0;font-size:11.5px;font-weight:600;color:var(--teal-dark);line-height:1.4;text-align:center;font-style:italic;opacity:.85}
+  .step-tip-icon{flex-shrink:0;color:var(--teal);display:inline-flex;align-items:center;justify-content:center}
+  .step-tip-icon svg{width:13px;height:13px}
+  .step-tip-text b{font-weight:800;font-style:normal}
+  .step-items{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:2px}
+  .step-item{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;color:var(--teal-dark);letter-spacing:.02em;padding:4px 10px;border-radius:980px;background:var(--teal-light);border:1px solid rgba(0,78,116,0.14)}
+  .step-item-icon{display:none}
+  /* Pulse on progress line */
+  .steps::after{background:linear-gradient(90deg,var(--teal-dark),var(--teal),#4fbaea);box-shadow:0 0 12px rgba(0,114,171,0.4)}
 
   /* NÚMEROS — NPS editorial premium */
   .numeros{background:linear-gradient(135deg,#0a1f28 0%,#0e2a34 50%,#0a1f28 100%);color:#fff;padding:120px 40px;position:relative;overflow:hidden}
@@ -263,7 +343,7 @@
 
   /* SUB-MARCAS */
   .subs{background:var(--bg-soft)}
-  .subs-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .subs-grid{display:grid;grid-template-columns:1fr;gap:26px}
   .sub-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:40px 34px;transition:all .3s cubic-bezier(.22,.61,.36,1);box-shadow:0 2px 10px rgba(0,0,0,0.03)}
   .sub-card:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,114,171,0.12)}
   .sub-logo{height:66px;display:flex;align-items:center;margin-bottom:20px}
@@ -273,10 +353,146 @@
   .sub-cta{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#fff;padding:11px 24px;border-radius:6px;background:var(--teal);transition:all .25s;box-shadow:0 4px 12px rgba(0,114,171,0.28)}
   .sub-cta:hover{background:var(--teal-dark);transform:translateY(-1px)}
 
+  /* SUB-CARD FEATURED — Estratemed editorial minimal */
+  .sub-card-featured{padding:0;overflow:hidden;background:#fff;border:1px solid rgba(14,42,52,0.08);position:relative}
+  .sub-featured-head{display:grid;grid-template-columns:auto 1fr;gap:44px;padding:36px 48px 28px;align-items:center}
+  .sub-featured-logo{display:flex;align-items:center;justify-content:center;padding:12px 24px;border-right:1px solid rgba(14,42,52,0.08)}
+  .sub-featured-logo img{max-width:160px;max-height:70px;width:auto;object-fit:contain}
+  .sub-featured-copy{display:flex;flex-direction:column;align-items:flex-start;padding-left:0}
+  .sub-featured-eyebrow{font-size:10.5px;font-weight:700;color:var(--teal-dark);letter-spacing:.28em;text-transform:uppercase;margin-bottom:10px;display:inline-flex;align-items:center;gap:10px}
+  .sub-featured-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--teal-dark);border-radius:2px}
+  .sub-featured-title{font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.015em;color:#0e2a34;line-height:1.25;margin-bottom:10px;max-width:640px}
+  .sub-featured-title .accent{color:var(--teal-dark);background:linear-gradient(120deg,var(--teal-dark),var(--teal));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+  .sub-featured-desc{font-size:14px;color:#4a5560;line-height:1.65;margin-bottom:16px;max-width:560px;font-weight:400}
+  .sub-featured-desc strong{color:#0e2a34;font-weight:600}
+  .sub-cta-featured{padding:12px 22px;border-radius:8px;font-size:13px;background:transparent;color:var(--teal-dark) !important;border:1.5px solid var(--teal-dark);box-shadow:none;font-weight:700}
+  .sub-cta-featured:hover{background:var(--teal-dark);color:#fff !important;transform:translateY(-1px);box-shadow:0 8px 20px -4px rgba(0,78,116,0.3)}
+
+  /* Sistema Estratemed — Bento con viñetas gráficas */
+  .est-wrap{padding:4px 48px 36px;position:relative}
+  .est-label{display:flex;align-items:center;gap:14px;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#8a94a0;margin-bottom:16px}
+  .est-label::before{content:'';flex-shrink:0;width:24px;height:2px;background:#0e2a34;border-radius:2px}
+  .est-label span{color:#0e2a34}
+  .est-bento{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;list-style:none;padding:4px 0 0;margin:0;position:relative}
+  .est-tile{background:#fff;border:1px solid rgba(14,42,52,0.09);border-radius:14px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .35s ease,opacity .6s ease var(--delay,0s);position:relative;min-height:170px;opacity:0;transform:translateY(14px);z-index:1;overflow:hidden}
+  .est-bento.is-visible .est-tile{opacity:1;transform:translateY(0)}
+  .est-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal-dark),var(--teal),#4fbaea);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.22,.61,.36,1);border-radius:2px 2px 0 0}
+  .est-tile:hover{transform:translateY(-4px);box-shadow:0 24px 44px -18px rgba(14,42,52,0.2);border-color:rgba(0,78,116,0.24);z-index:2}
+  .est-tile:hover::before{transform:scaleX(1)}
+  .est-tile-viz{height:66px;display:flex;align-items:center;justify-content:center;position:relative}
+  .est-tile-viz svg{width:100%;max-width:130px;height:100%;color:var(--teal-dark);overflow:visible}
+  .est-tile-meta{display:flex;flex-direction:column;gap:4px;margin-top:auto}
+  .est-tile-num{font-size:9.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);opacity:.8;font-variant-numeric:tabular-nums}
+  .est-tile-title{font-size:13.5px;font-weight:800;letter-spacing:-.005em;color:#0e2a34;line-height:1.25}
+  .est-tile-desc{font-size:11.5px;color:#6b7280;line-height:1.5;font-weight:400}
+  /* Bento asymmetric layout — visual rhythm sin proceso */
+  .est-tile-1{grid-column:1/3;--delay:.05s}
+  .est-tile-2{grid-column:3/5;--delay:.15s}
+  .est-tile-3{grid-column:5/7;--delay:.25s}
+  .est-tile-4{grid-column:1/4;--delay:.35s}
+  .est-tile-5{grid-column:4/7;--delay:.45s}
+  /* Alt tint tiles for rhythm */
+  .est-tile-2,.est-tile-4{background:linear-gradient(180deg,#f4f9fb 0%,#eef5f8 100%);border-color:rgba(0,78,116,0.14)}
+
+  /* ═══ RISK SUPPORT — Dark HUD futurista ═══ */
+  .rs-card{padding:0;overflow:hidden;background:linear-gradient(160deg,#0a1f28 0%,#0e2a34 50%,#122f3d 100%);border:1px solid rgba(79,186,234,0.18);color:#fff;position:relative}
+  .rs-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--teal),#4fbaea,var(--teal),transparent);opacity:.7;z-index:1}
+  .rs-card::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(79,186,234,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(79,186,234,0.04) 1px,transparent 1px);background-size:32px 32px;opacity:.6;pointer-events:none;z-index:0;-webkit-mask:radial-gradient(ellipse at center,#000 40%,transparent 90%);mask:radial-gradient(ellipse at center,#000 40%,transparent 90%)}
+  .rs-head{display:grid;grid-template-columns:240px 1fr;gap:52px;padding:44px 52px 32px;align-items:center;position:relative;z-index:1}
+  .rs-logo{display:flex;align-items:center;justify-content:center;position:relative;padding:8px 0}
+  .rs-logo::before{content:'';position:absolute;inset:-24px;background:radial-gradient(circle,rgba(79,186,234,0.22),transparent 65%);filter:blur(20px);z-index:-1;animation:rsLogoGlow 4s ease-in-out infinite}
+  @keyframes rsLogoGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+  .rs-logo img{width:100%;max-width:240px;height:auto;object-fit:contain;display:block;filter:drop-shadow(0 8px 24px rgba(79,186,234,0.35))}
+  .rs-copy{display:flex;flex-direction:column;align-items:flex-start}
+  .rs-eyebrow{font-size:10.5px;font-weight:700;color:#4fbaea;letter-spacing:.28em;text-transform:uppercase;margin-bottom:10px;display:inline-flex;align-items:center;gap:10px}
+  .rs-eyebrow::before{content:'';width:8px;height:8px;border-radius:50%;background:#4fbaea;box-shadow:0 0 10px rgba(79,186,234,0.8);animation:rsPulseDot 1.8s ease-in-out infinite}
+  @keyframes rsPulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+  .rs-title{font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.015em;color:#fff;line-height:1.25;margin-bottom:10px;max-width:640px}
+  .rs-title .accent{color:#4fbaea;background:linear-gradient(120deg,#4fbaea,#7dd0f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+  .rs-desc{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.65;margin-bottom:16px;max-width:560px;font-weight:400}
+  .rs-desc strong{color:#4fbaea;font-weight:700}
+  .rs-cta{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:8px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--teal) 0%,#4fbaea 100%);color:#0e2a34 !important;border:1px solid transparent;transition:all .3s cubic-bezier(.22,.61,.36,1);box-shadow:0 10px 24px -6px rgba(79,186,234,0.4)}
+  .rs-cta:hover{background:linear-gradient(135deg,#4fbaea 0%,#7dd0f5 100%);transform:translateY(-2px);box-shadow:0 14px 30px -6px rgba(79,186,234,0.6)}
+  /* Modules — HUD panels */
+  .rs-modules-wrap{padding:4px 48px 36px;position:relative;z-index:1}
+  .rs-label{display:flex;align-items:center;gap:14px;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px}
+  .rs-label::before{content:'';flex-shrink:0;width:24px;height:2px;background:#4fbaea;border-radius:2px;box-shadow:0 0 8px rgba(79,186,234,0.6)}
+  .rs-label span{color:rgba(255,255,255,0.85)}
+  .rs-modules{list-style:none;padding:4px 0 0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative}
+  .rs-module{background:linear-gradient(180deg,rgba(255,255,255,0.04) 0%,rgba(255,255,255,0.01) 100%);border:1px solid rgba(79,186,234,0.16);padding:16px 14px 16px;position:relative;display:flex;flex-direction:column;gap:10px;min-height:170px;transition:all .35s cubic-bezier(.22,.61,.36,1),opacity .6s ease var(--delay,0s);opacity:0;transform:translateY(14px);overflow:hidden;border-radius:2px}
+  .rs-modules.is-visible .rs-module{opacity:1;transform:translateY(0)}
+  /* Corner brackets */
+  .rs-module::before,.rs-module::after{content:'';position:absolute;width:10px;height:10px;border-color:#4fbaea;transition:all .3s ease}
+  .rs-module::before{top:-1px;left:-1px;border-top:1.5px solid;border-left:1.5px solid}
+  .rs-module::after{bottom:-1px;right:-1px;border-bottom:1.5px solid;border-right:1.5px solid}
+  .rs-module:hover{background:linear-gradient(180deg,rgba(79,186,234,0.09) 0%,rgba(79,186,234,0.02) 100%);border-color:rgba(79,186,234,0.45);transform:translateY(-3px);box-shadow:0 16px 32px -14px rgba(79,186,234,0.35),0 0 0 1px rgba(79,186,234,0.15) inset}
+  .rs-module:hover::before,.rs-module:hover::after{width:14px;height:14px;border-color:#7dd0f5}
+  .rs-mod-scan{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(79,186,234,0.15),transparent);animation:rsScan 6s linear infinite;pointer-events:none;z-index:0}
+  @keyframes rsScan{to{left:200%}}
+  .rs-mod-1 .rs-mod-scan{animation-delay:0s}
+  .rs-mod-2 .rs-mod-scan{animation-delay:1.2s}
+  .rs-mod-3 .rs-mod-scan{animation-delay:2.4s}
+  .rs-mod-4 .rs-mod-scan{animation-delay:3.6s}
+  .rs-mod-5 .rs-mod-scan{animation-delay:4.8s}
+  .rs-mod-icon{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(79,186,234,0.28),rgba(79,186,234,0.08) 70%);border:1px solid rgba(79,186,234,0.35);display:flex;align-items:center;justify-content:center;color:#4fbaea;box-shadow:0 0 20px -4px rgba(79,186,234,0.25),inset 0 1px 0 rgba(255,255,255,0.08);position:relative;z-index:1;transition:all .35s ease}
+  .rs-module:hover .rs-mod-icon{background:radial-gradient(circle at 30% 30%,rgba(79,186,234,0.45),rgba(79,186,234,0.12) 70%);border-color:#7dd0f5;color:#fff;box-shadow:0 0 28px -2px rgba(79,186,234,0.55)}
+  .rs-mod-icon svg{width:22px;height:22px}
+  .rs-mod-tag{font-size:9px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#4fbaea;opacity:.85;position:relative;z-index:1}
+  .rs-mod-title{font-size:12px;font-weight:700;color:#fff;line-height:1.35;position:relative;z-index:1;margin-top:auto;letter-spacing:-.005em}
+  /* Animaciones específicas por icono */
+  .rs-radar-sweep{animation:rsRadarSweep 3.6s linear infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes rsRadarSweep{to{transform:rotate(360deg)}}
+  .rs-warn-pulse{animation:rsWarnPulse 1.4s ease-in-out infinite}
+  @keyframes rsWarnPulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .rs-shield-glow{animation:rsShieldGlow 2.4s ease-in-out infinite}
+  @keyframes rsShieldGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(79,186,234,0))}50%{filter:drop-shadow(0 0 6px rgba(79,186,234,0.9))}}
+  .rs-gear-spin{animation:rsGearSpin 6s linear infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes rsGearSpin{to{transform:rotate(360deg)}}
+  .rs-flame-flicker{animation:rsFlame 1.2s ease-in-out infinite;transform-origin:center bottom;transform-box:fill-box}
+  @keyframes rsFlame{0%,100%{transform:scale(1) skewX(0deg)}25%{transform:scale(1.08) skewX(-3deg)}50%{transform:scale(.95) skewX(2deg)}75%{transform:scale(1.05) skewX(-2deg)}}
+  @media (prefers-reduced-motion: reduce){
+    .rs-radar-sweep,.rs-warn-pulse,.rs-shield-glow,.rs-gear-spin,.rs-flame-flicker,.rs-mod-scan,.rs-eyebrow::before{animation:none}
+  }
+  .est-viz-scan{animation:estScan 3.4s ease-in-out infinite;transform-origin:70px 42px;transform-box:fill-box}
+  @keyframes estScan{0%,100%{transform:translateX(-22px)}50%{transform:translateX(22px)}}
+  .est-viz-bar{animation:estBar 2.6s ease-in-out infinite;transform-origin:bottom;transform-box:fill-box}
+  .est-viz-bar-1{animation-delay:0s}
+  .est-viz-bar-2{animation-delay:.2s}
+  .est-viz-bar-3{animation-delay:.4s}
+  .est-viz-bar-4{animation-delay:.6s}
+  .est-viz-bar-5{animation-delay:.8s}
+  .est-viz-bar-6{animation-delay:1s}
+  @keyframes estBar{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.75)}}
+  .est-viz-donut{animation:estDonut 5s linear infinite;transform-origin:75px 45px;transform-box:fill-box}
+  @keyframes estDonut{to{transform:rotate(360deg)}}
+  .est-viz-donut-dot{animation:estDonutPulse 1.6s ease-in-out infinite;transform-origin:75px 45px;transform-box:fill-box}
+  @keyframes estDonutPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+  .est-viz-scale{animation:estScale 3.2s ease-in-out infinite;transform-origin:75px 30px;transform-box:fill-box}
+  @keyframes estScale{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+  .est-viz-tip{animation:estTip 2.4s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes estTip{0%,100%{transform:translate(0,0)}50%{transform:translate(0,-4px)}}
+  .est-viz-tip-halo{animation:estTipHalo 2.4s ease-in-out infinite;transform-origin:134px 14px;transform-box:fill-box}
+  @keyframes estTipHalo{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.15;transform:scale(1.35)}}
+  .est-viz-ripple{animation:estRipple 2.4s ease-out infinite;transform-origin:75px 45px;transform-box:fill-box}
+  .est-viz-ripple-2{animation:estRipple 2.4s ease-out infinite;animation-delay:.6s;transform-origin:75px 45px;transform-box:fill-box}
+  .est-viz-ripple-3{animation:estRipple 2.4s ease-out infinite;animation-delay:1.2s;transform-origin:75px 45px;transform-box:fill-box}
+  @keyframes estRipple{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+  .est-viz-core{animation:estCore 1.8s ease-in-out infinite;transform-origin:75px 45px;transform-box:fill-box}
+  @keyframes estCore{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+  /* Boost on hover — animaciones más rápidas */
+  .est-tile:hover .est-viz-scan{animation-duration:1.8s}
+  .est-tile:hover .est-viz-bar{animation-duration:1.2s}
+  .est-tile:hover .est-viz-scale{animation-duration:1.6s}
+  .est-tile:hover .est-viz-ripple,.est-tile:hover .est-viz-ripple-2,.est-tile:hover .est-viz-ripple-3{animation-duration:1.4s}
+  @media (prefers-reduced-motion: reduce){
+    .est-viz-scan,.est-viz-bar,.est-viz-donut,.est-viz-donut-dot,.est-viz-scale,.est-viz-tip,.est-viz-tip-halo,.est-viz-ripple,.est-viz-ripple-2,.est-viz-ripple-3,.est-viz-core{animation:none}
+  }
+
   /* POWERED BY BTG */
   .btg-band{padding:40px 40px;background:#fff;border-top:1px solid var(--border);text-align:center}
   .btg-band-lbl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-  .btg-band-logo{height:44px;width:auto;margin:0 auto;opacity:.85}
+  .btg-band-logo{height:64px;width:auto;margin:0 auto;opacity:.9;transition:opacity .3s ease}
+  .btg-band-logo:hover{opacity:1}
 
   /* CONTACTO */
   .contacto{background:linear-gradient(135deg,var(--teal-light) 0%,#fff 100%);text-align:center}
@@ -284,8 +500,13 @@
   .contacto h2{font-size:clamp(28px,3.6vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--text);margin-bottom:16px}
   .contacto h2 .accent{color:var(--teal)}
   .contacto p{font-size:15.5px;color:var(--muted);margin-bottom:34px;line-height:1.65}
-  .wa-cta{display:inline-flex;align-items:center;gap:11px;padding:16px 34px;border-radius:6px;background:#25D366;color:#fff;font-size:16px;font-weight:700;letter-spacing:.01em;box-shadow:0 10px 30px rgba(37,211,102,0.35);transition:all .3s}
+  .wa-cta{display:inline-flex;align-items:center;gap:11px;padding:16px 34px;border-radius:6px;background:#25D366;color:#fff;font-size:16px;font-weight:700;letter-spacing:.01em;box-shadow:0 10px 30px rgba(37,211,102,0.35);transition:all .3s;border:none;font-family:inherit;cursor:pointer}
   .wa-cta:hover{background:#1eb85c;transform:translateY(-2px);box-shadow:0 14px 40px rgba(37,211,102,0.5)}
+  .wa-cta.is-disabled{background:#c8ced5;color:#fff;box-shadow:none;cursor:not-allowed;opacity:.85;pointer-events:none}
+  .wa-cta.is-disabled:hover{background:#c8ced5;transform:none;box-shadow:none}
+  .wa-badge-soon{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:6px 14px;border-radius:980px;background:rgba(0,78,116,0.08);border:1px solid rgba(0,78,116,0.18);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-dark)}
+  .wa-badge-soon::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal-dark);animation:waSoonDot 1.6s ease-in-out infinite}
+  @keyframes waSoonDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
 
   /* WHATSAPP FLOAT */
   .wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(37,211,102,0.4);z-index:99;transition:transform .25s;animation:waFloat 2.4s ease-in-out infinite}
@@ -351,11 +572,10 @@
     .step-num{position:relative;top:auto;left:auto;transform:none;display:inline-block;margin-bottom:12px}
     .step-icon{margin:0 auto 14px;width:72px;height:72px}
     .step-icon svg{width:32px;height:32px}
-    .step-body{min-height:auto;padding:22px 22px}
-    .step:hover .step-body{min-height:auto}
-    .step-title{margin-bottom:10px}
-    .step-desc{max-height:none;opacity:1;overflow:visible}
-    .step-items{max-height:none;opacity:1;overflow:visible;margin-top:12px}
+    .step-body{padding:22px 22px}
+    .step-title{margin-bottom:0}
+    .step-desc{overflow:visible}
+    .step-items{margin-top:6px}
     .numeros{padding:70px 20px}
     .numeros-hero{grid-template-columns:1fr;gap:44px;text-align:center}
     .numeros-eyebrow{margin-bottom:16px}
@@ -374,6 +594,38 @@
     .test-quote{padding-left:0;border-left:none;padding:14px;background:#fff;border-radius:10px;text-align:left}
     .subs-grid{grid-template-columns:1fr}
     .sub-card{padding:34px 28px}
+    .sub-card-featured{padding:0}
+    .sub-featured-head{grid-template-columns:1fr;gap:18px;padding:28px 22px 22px;text-align:left}
+    .sub-featured-logo{border-right:none;border-bottom:1px solid rgba(14,42,52,0.08);padding:0 0 18px 0;justify-content:flex-start}
+    .sub-featured-logo img{max-width:140px;max-height:56px}
+    .sub-featured-title{font-size:20px}
+    .sub-featured-desc{font-size:14px}
+    .sub-cta-featured{width:100%;justify-content:center;padding:14px 22px}
+    .est-wrap{padding:4px 22px 28px}
+    .est-label{margin-bottom:14px;font-size:9.5px}
+    .est-bento{grid-template-columns:1fr;gap:10px;padding:4px 0 0}
+    .est-tile,.est-tile-1,.est-tile-2,.est-tile-3,.est-tile-4,.est-tile-5{grid-column:1/-1;min-height:auto;transform:none !important;opacity:1 !important}
+    .est-tile{flex-direction:row;align-items:center;gap:16px;padding:14px 16px}
+    .est-tile-viz{width:64px;height:54px;flex-shrink:0;margin:0}
+    .est-tile-viz svg{max-width:64px}
+    .est-tile-meta{margin-top:0;gap:3px;flex:1;min-width:0}
+    .est-tile-title{font-size:13.5px;line-height:1.25}
+    .est-tile-desc{font-size:12px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    /* Risk Support mobile */
+    .rs-head{grid-template-columns:1fr;gap:20px;padding:32px 22px 22px}
+    .rs-logo{align-self:flex-start;padding:0}
+    .rs-logo img{max-width:170px;height:auto}
+    .rs-title{font-size:20px}
+    .rs-desc{font-size:14px}
+    .rs-cta{width:100%;justify-content:center;padding:14px 22px}
+    .rs-modules-wrap{padding:4px 22px 28px}
+    .rs-label{margin-bottom:14px;font-size:9.5px}
+    .rs-modules{grid-template-columns:1fr;gap:10px}
+    .rs-module{min-height:auto;flex-direction:row;align-items:center;gap:14px;padding:14px 16px;opacity:1 !important;transform:none !important}
+    .rs-mod-icon{width:40px;height:40px;flex-shrink:0}
+    .rs-mod-icon svg{width:20px;height:20px}
+    .rs-module .rs-mod-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+    .rs-mod-title{font-size:12.5px;margin-top:0}
     .contacto{padding:64px 20px}
     .wa-cta{padding:16px 30px;min-height:52px}
     .footer{padding:52px 22px 26px}
@@ -411,6 +663,9 @@
     .srv-list li{font-size:14px}
     .srv-icon{width:56px;height:56px;border-radius:14px}
     .srv-icon svg{width:28px;height:28px}
+    .srv-toggle{margin-bottom:18px;padding:3px}
+    .srv-tab{font-size:12.5px;padding:9px 8px}
+    .srv-mode-tip{font-size:10.5px;letter-spacing:.14em;margin-bottom:12px}
     .dif{padding:48px 12px}
     .dif-band{padding:44px 22px;border-radius:22px}
     .dif-eyebrow{font-size:10.5px;letter-spacing:.22em;margin-bottom:18px}
@@ -571,13 +826,13 @@
 <section class="section servicios" id="servicios">
   <div class="section-inner">
     <div class="section-title">
-      <div class="sec-eyebrow">Aseguramos</div>
-      <h2 class="sec-h2">Un portafolio pensado para <span class="accent">cada aspecto de tu vida.</span></h2>
-      <p class="sec-lead">Tres ramos, un mismo estándar de atención: cercanía, criterio y respuesta a la altura de lo que aseguras.</p>
+      <div class="sec-eyebrow">Portafolio Luvasa</div>
+      <h2 class="sec-h2">Aseguramos lo que <span class="accent">más importa.</span></h2>
+      <p class="sec-lead">Elige el tipo de cobertura en cada ramo — <strong>empresarial</strong> o <strong>individual</strong> — y descubre cómo lo respaldamos con el mismo estándar: cercanía, criterio y respuesta a la altura.</p>
     </div>
     <div class="servicios-grid">
 
-      <article class="srv-card">
+      <article class="srv-card" data-mode="empresa">
         <div class="srv-head">
           <span class="srv-num">01 — MOVILIDAD</span>
           <div class="srv-icon">
@@ -585,22 +840,49 @@
           </div>
         </div>
         <h3 class="srv-title">Movilidad</h3>
-        <p class="srv-lead">Cobertura integral para todo lo que se mueve — con asesoría, supervisión y gestoría en cada trámite.</p>
-        <ul class="srv-list">
-          <li>Automóviles</li>
-          <li>Motocicletas</li>
-          <li>Camiones</li>
-          <li>Demás vehículos</li>
-        </ul>
-        <a href="cotizar-auto.html" class="srv-link">
-          Cotizar movilidad
-          <span class="srv-link-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
+        <div class="srv-toggle" role="tablist" aria-label="Elige el tipo de cobertura de Movilidad">
+          <button type="button" class="srv-tab" role="tab" data-target="empresa" aria-selected="true"><span class="srv-tab-dot"></span>Empresa</button>
+          <button type="button" class="srv-tab" role="tab" data-target="individual" aria-selected="false"><span class="srv-tab-dot"></span>Individual</button>
+          <span class="srv-toggle-thumb" aria-hidden="true"></span>
+        </div>
+        <div class="srv-panes">
+          <div class="srv-pane is-active" data-pane="empresa" role="tabpanel">
+            <span class="srv-mode-tip">Para tu operación</span>
+            <p class="srv-lead">Flotillas y transporte administrados con criterio técnico — control de siniestralidad y coberturas a la medida de tu operación.</p>
+            <ul class="srv-list">
+              <li>Flotillas comerciales</li>
+              <li>Camiones y transporte de carga</li>
+              <li>Vehículos utilitarios</li>
+              <li>Programas de gestión de riesgo</li>
+            </ul>
+            <span class="srv-more">y más…</span>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20propuesta%20de%20Movilidad%20para%20mi%20empresa" target="_blank" rel="noopener" class="srv-link">
+              Solicitar propuesta empresarial
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+          <div class="srv-pane" data-pane="individual" role="tabpanel">
+            <span class="srv-mode-tip">Para ti y tu familia</span>
+            <p class="srv-lead">Protección completa para tu auto, moto o vehículo recreativo — con asesoría personal y asistencia vial las 24 horas.</p>
+            <ul class="srv-list">
+              <li>Automóvil particular</li>
+              <li>Motocicletas</li>
+              <li>Vehículos recreativos</li>
+              <li>Asistencia vial 24/7</li>
+            </ul>
+            <a href="cotizar-auto.html" class="srv-link">
+              Cotizar mi vehículo
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
       </article>
 
-      <article class="srv-card">
+      <article class="srv-card" data-mode="empresa">
         <div class="srv-head">
           <span class="srv-num">02 — BENEFICIOS</span>
           <div class="srv-icon">
@@ -608,21 +890,49 @@
           </div>
         </div>
         <h3 class="srv-title">Beneficios</h3>
-        <p class="srv-lead">Salud, tranquilidad y respaldo para ti y los tuyos, con el mejor servicio médico del mercado.</p>
-        <ul class="srv-list">
-          <li>Gastos Médicos Mayores</li>
-          <li>Accidentes Personales</li>
-          <li>Vida</li>
-        </ul>
-        <a href="cotizar-gmm.html" class="srv-link">
-          Cotizar beneficios
-          <span class="srv-link-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
+        <div class="srv-toggle" role="tablist" aria-label="Elige el tipo de cobertura de Beneficios">
+          <button type="button" class="srv-tab" role="tab" data-target="empresa" aria-selected="true"><span class="srv-tab-dot"></span>Empresa</button>
+          <button type="button" class="srv-tab" role="tab" data-target="individual" aria-selected="false"><span class="srv-tab-dot"></span>Individual</button>
+          <span class="srv-toggle-thumb" aria-hidden="true"></span>
+        </div>
+        <div class="srv-panes">
+          <div class="srv-pane is-active" data-pane="empresa" role="tabpanel">
+            <span class="srv-mode-tip">Para tu equipo</span>
+            <p class="srv-lead">Beneficios colectivos que cuidan a tu personal y fortalecen tu marca empleadora — con administración eficiente y cero fricción.</p>
+            <ul class="srv-list">
+              <li>Gastos Médicos Mayores colectivo</li>
+              <li>Vida grupo</li>
+              <li>Accidentes Personales colectivo</li>
+              <li>Planes de retiro corporativos</li>
+            </ul>
+            <span class="srv-more">y más…</span>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20propuesta%20de%20Beneficios%20para%20mi%20empresa" target="_blank" rel="noopener" class="srv-link">
+              Solicitar propuesta empresarial
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+          <div class="srv-pane" data-pane="individual" role="tabpanel">
+            <span class="srv-mode-tip">Para ti y los tuyos</span>
+            <p class="srv-lead">Salud, tranquilidad y respaldo — con nuestro equipo médico acompañándote en cada etapa del proceso.</p>
+            <ul class="srv-list">
+              <li>Gastos Médicos Mayores</li>
+              <li>Accidentes Personales</li>
+              <li>Seguro de Vida individual</li>
+              <li>Planes de ahorro y retiro</li>
+            </ul>
+            <a href="cotizar-gmm.html" class="srv-link">
+              Cotizar mi cobertura
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
       </article>
 
-      <article class="srv-card">
+      <article class="srv-card" data-mode="empresa">
         <div class="srv-head">
           <span class="srv-num">03 — DAÑOS</span>
           <div class="srv-icon">
@@ -630,25 +940,82 @@
           </div>
         </div>
         <h3 class="srv-title">Daños</h3>
-        <p class="srv-lead">Consultoría certificada en gestión de riesgos para proteger patrimonio, negocio y operación.</p>
-        <ul class="srv-list">
-          <li>Daños</li>
-          <li>Responsabilidad Civil</li>
-          <li>Transportes</li>
-          <li>Líneas Financieras</li>
-          <li>Riesgos Especiales</li>
-        </ul>
-        <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20realizar%20una%20cotizaci%C3%B3n%20de%20Da%C3%B1os" target="_blank" rel="noopener" class="srv-link">
-          Solicitar propuesta
-          <span class="srv-link-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
+        <div class="srv-toggle" role="tablist" aria-label="Elige el tipo de cobertura de Daños">
+          <button type="button" class="srv-tab" role="tab" data-target="empresa" aria-selected="true"><span class="srv-tab-dot"></span>Empresa</button>
+          <button type="button" class="srv-tab" role="tab" data-target="individual" aria-selected="false"><span class="srv-tab-dot"></span>Individual</button>
+          <span class="srv-toggle-thumb" aria-hidden="true"></span>
+        </div>
+        <div class="srv-panes">
+          <div class="srv-pane is-active" data-pane="empresa" role="tabpanel">
+            <span class="srv-mode-tip">Para tu negocio</span>
+            <p class="srv-lead">Diagnóstico de riesgos y consultoría certificada para proteger activos, operación y continuidad de tu empresa.</p>
+            <ul class="srv-list">
+              <li>Daños empresariales</li>
+              <li>Responsabilidad Civil corporativa</li>
+              <li>Transporte de mercancías</li>
+              <li>Líneas Financieras</li>
+              <li>Riesgos Especiales</li>
+            </ul>
+            <span class="srv-more">y más…</span>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20cotizaci%C3%B3n%20de%20Da%C3%B1os%20para%20mi%20empresa" target="_blank" rel="noopener" class="srv-link">
+              Solicitar propuesta empresarial
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+          <div class="srv-pane" data-pane="individual" role="tabpanel">
+            <span class="srv-mode-tip">Para tu patrimonio</span>
+            <p class="srv-lead">Hogar, patrimonio y responsabilidad civil — para que lo que has construido esté siempre respaldado.</p>
+            <ul class="srv-list">
+              <li>Seguro de Hogar</li>
+              <li>Responsabilidad Civil familiar</li>
+              <li>Embarcaciones y objetos de valor</li>
+              <li>Coberturas patrimoniales</li>
+            </ul>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20cotizaci%C3%B3n%20de%20Da%C3%B1os%20para%20mi%20patrimonio" target="_blank" rel="noopener" class="srv-link">
+              Solicitar propuesta
+              <span class="srv-link-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
       </article>
 
     </div>
   </div>
 </section>
+
+<script>
+  (function(){
+    var cards = document.querySelectorAll('.servicios .srv-card');
+    cards.forEach(function(card){
+      var panesWrap = card.querySelector('.srv-panes');
+      var tabs = card.querySelectorAll('.srv-tab');
+      var panes = card.querySelectorAll('.srv-pane');
+      function syncHeight(){
+        var active = card.querySelector('.srv-pane.is-active');
+        if(active && panesWrap){
+          panesWrap.style.height = active.offsetHeight + 'px';
+        }
+      }
+      function activate(target){
+        card.setAttribute('data-mode', target);
+        tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.target === target ? 'true' : 'false'); });
+        panes.forEach(function(p){ p.classList.toggle('is-active', p.dataset.pane === target); });
+        syncHeight();
+      }
+      tabs.forEach(function(tab){
+        tab.addEventListener('click', function(){ activate(tab.dataset.target); });
+      });
+      // Init height after fonts/layout settle
+      syncHeight();
+      window.addEventListener('load', syncHeight);
+      window.addEventListener('resize', syncHeight);
+    });
+  })();
+</script>
 
 <!-- MARCAMOS LA DIFERENCIA -->
 <section class="dif">
@@ -715,8 +1082,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="15" height="11" rx="2"/><path d="M16 10h4l3 4v4h-7"/><circle cx="6" cy="20" r="2"/><circle cx="19" cy="20" r="2"/><path d="M8 12h2M9 11v2"/></svg>
         </div>
         <div class="step-body">
+          <span class="step-actor" data-actor="cliente">Tú</span>
           <div class="step-title">Siniestro</div>
-          <div class="step-desc">El asegurado sufre un siniestro y se comunica con el Equipo Luvasa en cualquier momento del día.</div>
+          <div class="step-desc">Sufres un siniestro y contactas al Equipo Luvasa. Sin filtros, sin bots — hablas directo con quien resuelve.</div>
+          <div class="step-tip">
+            <span class="step-tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <span class="step-tip-text">Atención <b>24/7</b> — cualquier día, cualquier hora.</span>
+          </div>
         </div>
       </div>
 
@@ -726,8 +1098,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M12 12v9"/></svg>
         </div>
         <div class="step-body">
-          <div class="step-title">Luvasa</div>
-          <div class="step-desc">Nuestros médicos reciben la llamada y activan el protocolo de atención durante todo el siniestro.</div>
+          <span class="step-actor" data-actor="luvasa">Luvasa</span>
+          <div class="step-title">Activamos el protocolo</div>
+          <div class="step-desc">Nuestros médicos reciben la llamada y activan el protocolo de atención integral durante todo el siniestro.</div>
           <div class="step-items">
             <div class="step-item">
               <span class="step-item-icon">
@@ -757,8 +1130,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6M9 12h.01M15 12h.01"/></svg>
         </div>
         <div class="step-body">
-          <div class="step-title">Atención Médica / Hospital</div>
-          <div class="step-desc">Damos seguimiento a la revisión del proceso administrativo y recabamos formatos de aviso e informe médico.</div>
+          <span class="step-actor" data-actor="externo">Hospital</span>
+          <div class="step-title">Atención Médica</div>
+          <div class="step-desc">Damos seguimiento al proceso administrativo del hospital y recabamos los formatos de aviso e informe médico por ti.</div>
+          <div class="step-tip">
+            <span class="step-tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <span class="step-tip-text">Tú te enfocas en <b>tu salud</b>. Nosotros del papeleo.</span>
+          </div>
         </div>
       </div>
 
@@ -768,8 +1146,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
         </div>
         <div class="step-body">
-          <div class="step-title">Aseguradora</div>
-          <div class="step-desc">Coordinamos con la aseguradora la entrega de carta de respuesta al asegurado y/u hospital.</div>
+          <span class="step-actor" data-actor="externo">Aseguradora</span>
+          <div class="step-title">Gestión con la aseguradora</div>
+          <div class="step-desc">Coordinamos la entrega de la carta de respuesta al asegurado y/u hospital — con nuestro criterio técnico defendiéndote.</div>
+          <div class="step-tip">
+            <span class="step-tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <span class="step-tip-text">Negociamos <b>por ti</b>, con evidencia médica sólida.</span>
+          </div>
         </div>
       </div>
 
@@ -779,8 +1162,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9"/><circle cx="9" cy="12" r="2"/><path d="M18 15l2 2 4-4"/></svg>
         </div>
         <div class="step-body">
+          <span class="step-actor" data-actor="luvasa">Luvasa</span>
           <div class="step-title">Pago Directo / Reembolso</div>
           <div class="step-desc">Transferencia y finiquito en caso de procedencia, con desglose claro de montos autorizados, deducible y coaseguro.</div>
+          <div class="step-tip">
+            <span class="step-tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <span class="step-tip-text">Cierre <b>transparente</b>. Sin sorpresas en el estado de cuenta.</span>
+          </div>
         </div>
       </div>
 
@@ -932,16 +1320,206 @@
       <h2 class="sec-h2">Consultoría especializada para <span class="accent">tu sector.</span></h2>
     </div>
     <div class="subs-grid">
-      <div class="sub-card">
-        <div class="sub-logo"><img src="assets/img/estratemed.png" alt="Estratemed"></div>
-        <p class="sub-desc"><strong>Potencia la prosperidad de tu negocio en el sector salud.</strong> Con nuestra experta gestión: control de costos y administración de cash flow. Descubre el camino hacia la estabilidad financiera y el crecimiento sostenible.</p>
-        <a href="#contacto" class="sub-cta">Más información →</a>
-      </div>
-      <div class="sub-card">
-        <div class="sub-logo"><img src="assets/img/risk-support.png" alt="Risk Support"></div>
-        <p class="sub-desc"><strong>Consultoría y gestión de riesgo en el ramo de daños.</strong> Todo nuestro equipo está acreditado y certificado para acompañarte en la protección integral de tu patrimonio.</p>
-        <a href="#contacto" class="sub-cta">Más información →</a>
-      </div>
+      <article class="sub-card sub-card-featured">
+        <div class="sub-featured-head">
+          <div class="sub-featured-logo">
+            <img src="assets/img/estratemed.png" alt="Estratemed">
+          </div>
+          <div class="sub-featured-copy">
+            <span class="sub-featured-eyebrow">Sector Salud</span>
+            <h3 class="sub-featured-title">Potencia la prosperidad de tu negocio en el <span class="accent">sector salud.</span></h3>
+            <p class="sub-featured-desc">Con nuestra experta gestión: <strong>control de costos y administración de cash flow.</strong> Descubre el camino hacia la estabilidad financiera y el crecimiento sostenible.</p>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Estratemed%20%E2%80%94%20consultor%C3%ADa%20para%20el%20sector%20salud." target="_blank" rel="noopener" class="sub-cta sub-cta-featured">Más información →</a>
+          </div>
+        </div>
+        <div class="est-wrap">
+          <div class="est-label"><span>El sistema Estratemed</span></div>
+          <ol class="est-bento" id="estratemedBento">
+            <li class="est-tile est-tile-1">
+              <div class="est-tile-viz">
+                <svg viewBox="0 0 150 90" fill="none">
+                  <rect class="est-viz-bar est-viz-bar-1" x="12" y="40" width="10" height="42" rx="1.5" fill="#dfeaf1"/>
+                  <rect class="est-viz-bar est-viz-bar-2" x="28" y="30" width="10" height="52" rx="1.5" fill="#dfeaf1"/>
+                  <rect class="est-viz-bar est-viz-bar-3" x="44" y="46" width="10" height="36" rx="1.5" fill="#dfeaf1"/>
+                  <rect class="est-viz-bar est-viz-bar-4" x="60" y="22" width="10" height="60" rx="1.5" fill="#c9dae5"/>
+                  <rect class="est-viz-bar est-viz-bar-5" x="76" y="34" width="10" height="48" rx="1.5" fill="#dfeaf1"/>
+                  <rect class="est-viz-bar est-viz-bar-6" x="92" y="50" width="10" height="32" rx="1.5" fill="#dfeaf1"/>
+                  <g class="est-viz-scan">
+                    <circle cx="70" cy="42" r="18" fill="rgba(255,255,255,0.9)" stroke="currentColor" stroke-width="2.5"/>
+                    <line x1="83" y1="55" x2="95" y2="67" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M62 42 h16 M70 34 v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="est-tile-meta">
+                <span class="est-tile-num">Identificación</span>
+                <div class="est-tile-title">Identificación y control de costos</div>
+                <div class="est-tile-desc">Mapeamos cada partida para detectar fugas invisibles y oportunidades de ahorro.</div>
+              </div>
+            </li>
+            <li class="est-tile est-tile-2">
+              <div class="est-tile-viz">
+                <svg viewBox="0 0 150 90" fill="none">
+                  <circle cx="75" cy="45" r="28" stroke="#c9dae5" stroke-width="10" fill="none"/>
+                  <g class="est-viz-donut">
+                    <circle cx="75" cy="45" r="28" stroke="currentColor" stroke-width="10" fill="none" stroke-dasharray="100 176" stroke-linecap="round" transform="rotate(-90 75 45)"/>
+                  </g>
+                  <circle class="est-viz-donut-dot" cx="75" cy="45" r="6" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="est-tile-meta">
+                <span class="est-tile-num">Presupuesto</span>
+                <div class="est-tile-title">Presupuesto de costos</div>
+                <div class="est-tile-desc">Planificación financiera clara: cada peso con propósito y trazabilidad.</div>
+              </div>
+            </li>
+            <li class="est-tile est-tile-3">
+              <div class="est-tile-viz">
+                <svg viewBox="0 0 150 90" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                  <line x1="75" y1="30" x2="75" y2="70"/>
+                  <path d="M65 74 h20 l-10 -6 z" fill="currentColor" stroke="none"/>
+                  <g class="est-viz-scale">
+                    <line x1="30" y1="30" x2="120" y2="30"/>
+                    <path d="M22 44 c0 6 16 6 16 0 l-8 -14 z" fill="rgba(0,78,116,0.12)"/>
+                    <path d="M112 44 c0 6 16 6 16 0 l-8 -14 z" fill="rgba(0,78,116,0.12)"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="est-tile-meta">
+                <span class="est-tile-num">Control</span>
+                <div class="est-tile-title">Control de gastos</div>
+                <div class="est-tile-desc">Monitoreo continuo que mantiene tu operación en equilibrio y sin sorpresas.</div>
+              </div>
+            </li>
+            <li class="est-tile est-tile-4">
+              <div class="est-tile-viz">
+                <svg viewBox="0 0 150 90" fill="none">
+                  <line x1="14" y1="76" x2="140" y2="76" stroke="#c9dae5" stroke-width="1" stroke-dasharray="3 4"/>
+                  <line x1="14" y1="14" x2="14" y2="76" stroke="#c9dae5" stroke-width="1" stroke-dasharray="3 4"/>
+                  <path d="M14 68 L38 55 L62 60 L86 38 L110 26 L134 14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 68 L38 55 L62 60 L86 38 L110 26 L134 14 L134 76 L14 76 Z" fill="url(#estGrad4)" opacity="0.18"/>
+                  <defs><linearGradient id="estGrad4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+                  <g class="est-viz-tip"><circle cx="134" cy="14" r="6" fill="currentColor"/></g>
+                  <circle class="est-viz-tip-halo" cx="134" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                </svg>
+              </div>
+              <div class="est-tile-meta">
+                <span class="est-tile-num">Eficiencia</span>
+                <div class="est-tile-title">Eficiencia operativa</div>
+                <div class="est-tile-desc">Optimizamos procesos para que tu negocio rinda más con menos esfuerzo.</div>
+              </div>
+            </li>
+            <li class="est-tile est-tile-5">
+              <div class="est-tile-viz">
+                <svg viewBox="0 0 150 90" fill="none" stroke="currentColor">
+                  <circle class="est-viz-ripple-3" cx="75" cy="45" r="18" stroke-width="1" fill="none" opacity="0"/>
+                  <circle class="est-viz-ripple-2" cx="75" cy="45" r="18" stroke-width="1.3" fill="none" opacity="0"/>
+                  <circle class="est-viz-ripple" cx="75" cy="45" r="18" stroke-width="1.8" fill="none" opacity="0"/>
+                  <circle cx="75" cy="45" r="28" stroke-width="1.3" fill="none" opacity="0.22"/>
+                  <circle cx="75" cy="45" r="38" stroke-width="1" fill="none" opacity="0.12"/>
+                  <circle class="est-viz-core" cx="75" cy="45" r="8" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="est-tile-meta">
+                <span class="est-tile-num">Adaptación</span>
+                <div class="est-tile-title">Adaptación a cambios de entorno</div>
+                <div class="est-tile-desc">Anticipamos cambios del sector salud y ajustamos tu estrategia a tiempo.</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </article>
+      <article class="sub-card sub-card-featured rs-card">
+        <div class="rs-head">
+          <div class="rs-logo">
+            <img src="assets/img/risk-support.png" alt="Risk Support Consulting">
+          </div>
+          <div class="rs-copy">
+            <span class="rs-eyebrow">Ramo de Daños</span>
+            <h3 class="rs-title">Consultoría y gestión de riesgo en el <span class="accent">ramo de daños.</span></h3>
+            <p class="rs-desc">Todo nuestro equipo está <strong>acreditado y certificado</strong> para acompañarte en la protección integral de tu patrimonio.</p>
+            <a href="https://wa.me/525532225208?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Risk%20Support%20%E2%80%94%20consultor%C3%ADa%20en%20el%20ramo%20de%20da%C3%B1os." target="_blank" rel="noopener" class="rs-cta">Más información →</a>
+          </div>
+        </div>
+        <div class="rs-modules-wrap">
+          <div class="rs-label"><span>Sistema de protección integral</span></div>
+          <ol class="rs-modules" id="riskSupportModules">
+            <li class="rs-module rs-mod-1">
+              <span class="rs-mod-scan" aria-hidden="true"></span>
+              <div class="rs-mod-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/>
+                  <circle cx="12" cy="12" r="5" opacity="0.5"/>
+                  <g class="rs-radar-sweep"><line x1="12" y1="12" x2="12" y2="3.5" stroke-width="2"/><circle cx="12" cy="3.5" r="1.2" fill="currentColor" stroke="none"/></g>
+                  <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </div>
+              <div class="rs-mod-meta">
+                <span class="rs-mod-tag">Detección</span>
+                <div class="rs-mod-title">Identificación de riesgos y análisis de daños potenciales</div>
+              </div>
+            </li>
+            <li class="rs-module rs-mod-2">
+              <span class="rs-mod-scan" aria-hidden="true"></span>
+              <div class="rs-mod-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <g class="rs-warn-pulse"><line x1="12" y1="9" x2="12" y2="14" stroke-width="2"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2.5"/></g>
+                </svg>
+              </div>
+              <div class="rs-mod-meta">
+                <span class="rs-mod-tag">Mitigación</span>
+                <div class="rs-mod-title">Gestión para mitigación de riesgos y control de siniestralidad</div>
+              </div>
+            </li>
+            <li class="rs-module rs-mod-3">
+              <span class="rs-mod-scan" aria-hidden="true"></span>
+              <div class="rs-mod-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="rs-shield-glow">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <div class="rs-mod-meta">
+                <span class="rs-mod-tag">Protección</span>
+                <div class="rs-mod-title">Protección de colaboradores, activos, reputación y finanzas</div>
+              </div>
+            </li>
+            <li class="rs-module rs-mod-4">
+              <span class="rs-mod-scan" aria-hidden="true"></span>
+              <div class="rs-mod-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 16.5a8 8 0 0 1 16 0" fill="rgba(79,186,234,0.12)"/>
+                  <path d="M9 8.5V6a3 3 0 0 1 6 0v2.5" stroke-width="1.5"/>
+                  <line x1="2.5" y1="18.5" x2="21.5" y2="18.5" stroke-width="2"/>
+                  <line x1="7" y1="16.5" x2="8.5" y2="10.5" opacity="0.7"/>
+                  <line x1="17" y1="16.5" x2="15.5" y2="10.5" opacity="0.7"/>
+                  <g class="rs-shield-glow"><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></g>
+                </svg>
+              </div>
+              <div class="rs-mod-meta">
+                <span class="rs-mod-tag">Higiene</span>
+                <div class="rs-mod-title">Estudios de seguridad e higiene industrial</div>
+              </div>
+            </li>
+            <li class="rs-module rs-mod-5">
+              <span class="rs-mod-scan" aria-hidden="true"></span>
+              <div class="rs-mod-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <g class="rs-flame-flicker">
+                    <path d="M12 22c4 0 7-3 7-7 0-3-2-5-3-7-1 2-3 3-5 3 0-3 1-5 3-7-4 0-9 4-9 10 0 4 3 8 7 8z" fill="rgba(79,186,234,0.12)"/>
+                    <path d="M12 18c1.7 0 3-1.3 3-3 0-1.5-1-2.5-1.5-3.5-.7 1-1.5 1.5-2.5 1.8.2-1 .5-1.8 1.3-2.6-2 .3-3.8 2-3.8 4.3 0 1.7 1.3 3 3.5 3z" fill="currentColor" opacity="0.9" stroke="none"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="rs-mod-meta">
+                <span class="rs-mod-tag">Emergencia</span>
+                <div class="rs-mod-title">Sistemas contra incendios y servicios periciales</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -956,12 +1534,13 @@
 <section class="section contacto" id="contacto">
   <div class="contacto-inner">
     <div class="sec-eyebrow">Contáctanos</div>
-    <h2>Estamos listos para <span class="accent">cuidar de ti.</span></h2>
-    <p>Un asesor Luvasa te atenderá al instante por WhatsApp.</p>
-    <a href="https://wa.me/525532225208?text=Hola%20Luvasa%2C%20me%20gustar%C3%ADa%20cotizar%20un%20seguro." target="_blank" class="wa-cta">
+    <h2>Aseguramos con criterio. <span class="accent">Respondemos con acción.</span></h2>
+    <p>Nuestro canal directo por WhatsApp estará disponible muy pronto.</p>
+    <button type="button" class="wa-cta is-disabled" aria-disabled="true" tabindex="-1">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Escríbenos por WhatsApp
-    </a>
+    </button>
+    <div class="wa-badge-soon">Próximamente disponible</div>
   </div>
 </section>
 
@@ -1028,6 +1607,34 @@
       });
     }, { threshold: 0.2 });
     observer.observe(steps);
+  })();
+
+  // Scroll-triggered reveal for Estratemed bento staircase
+  (function(){
+    var bento = document.getElementById('estratemedBento');
+    if (!bento) return;
+    if (!('IntersectionObserver' in window)) { bento.classList.add('is-visible'); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ bento.classList.add('is-visible'); obs.unobserve(bento); }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(bento);
+  })();
+
+  // Scroll-triggered reveal for Risk Support HUD modules
+  (function(){
+    var mods = document.getElementById('riskSupportModules');
+    if (!mods) return;
+    var tiles = mods.querySelectorAll('.rs-module');
+    tiles.forEach(function(t,i){ t.style.setProperty('--delay', (0.06*i + 0.05)+'s'); });
+    if (!('IntersectionObserver' in window)) { mods.classList.add('is-visible'); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ mods.classList.add('is-visible'); obs.unobserve(mods); }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(mods);
   })();
 
   // NPS section: gauge, counter, and benchmark markers reveal on scroll
