@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/cotizar-auto", "destination": "/autos", "permanent": true },
+    { "source": "/cotizar-gmm", "destination": "/gastosmedicos", "permanent": true }
+  ]
 }
