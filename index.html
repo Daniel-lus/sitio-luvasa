@@ -64,46 +64,45 @@
   @keyframes haloPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
   /* Subtle decorative outline offset */
   .hero-visual-frame{position:absolute;top:-14px;right:-14px;width:calc(100% - 32px);height:calc(100% - 32px);border:1.5px solid rgba(0,78,116,0.18);border-radius:24px;z-index:1;pointer-events:none}
-  /* Collage editorial — 3 imágenes con profundidad, parallax y entrada cinemática */
-  .hero-collage{position:relative;z-index:2;width:100%;height:100%;perspective:1400px;transform-style:preserve-3d}
-  .hero-card{position:absolute;overflow:hidden;border-radius:20px;background:#0e2a34;box-shadow:0 30px 60px -18px rgba(14,42,52,0.42),0 12px 28px -8px rgba(14,42,52,0.18);will-change:transform,filter;transition:transform .7s cubic-bezier(.22,.61,.36,1),filter .5s ease,box-shadow .5s ease,z-index 0s .3s;transform-origin:center center}
-  .hero-card::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);pointer-events:none;z-index:3}
-  .hero-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.04) contrast(1.02);transform:scale(1.05);transition:transform 1.2s cubic-bezier(.22,.61,.36,1);will-change:transform}
-  .hero-card--main{top:0;left:0;width:64%;height:74%;z-index:2;--rot:-1.4deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatMain 9s ease-in-out infinite alternate 1.2s}
-  .hero-card--tr{top:4%;right:0;width:44%;height:52%;z-index:3;--rot:2.2deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatTR 8s ease-in-out infinite alternate 1.4s}
-  .hero-card--br{bottom:0;right:6%;width:56%;height:48%;z-index:4;--rot:-1.6deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatBR 10s ease-in-out infinite alternate 1s}
-  @keyframes cardFloatMain{from{transform:rotate(-1.4deg) translate(0,0)}to{transform:rotate(-.6deg) translate(0,-9px)}}
-  @keyframes cardFloatTR{from{transform:rotate(2.2deg) translate(0,0)}to{transform:rotate(1.6deg) translate(0,7px)}}
-  @keyframes cardFloatBR{from{transform:rotate(-1.6deg) translate(0,0)}to{transform:rotate(-.8deg) translate(0,-6px)}}
-  /* Entrada cinemática — cada card entra desde un ángulo distinto */
-  .hero-card--main{animation:cardFloatMain 9s ease-in-out infinite alternate 1.2s,mainEnter 1.1s cubic-bezier(.22,.61,.36,1) both}
-  .hero-card--tr{animation:cardFloatTR 8s ease-in-out infinite alternate 1.4s,trEnter 1.1s cubic-bezier(.22,.61,.36,1) .25s both}
-  .hero-card--br{animation:cardFloatBR 10s ease-in-out infinite alternate 1s,brEnter 1.1s cubic-bezier(.22,.61,.36,1) .5s both}
-  @keyframes mainEnter{from{opacity:0;transform:rotate(-6deg) translate(-30px,20px) scale(.92)}to{opacity:1;transform:rotate(-1.4deg) translate(0,0) scale(1)}}
-  @keyframes trEnter{from{opacity:0;transform:rotate(9deg) translate(40px,-30px) scale(.9)}to{opacity:1;transform:rotate(2.2deg) translate(0,0) scale(1)}}
-  @keyframes brEnter{from{opacity:0;transform:rotate(-8deg) translate(20px,50px) scale(.9)}to{opacity:1;transform:rotate(-1.6deg) translate(0,0) scale(1)}}
-  /* Hover — la card se sale del stack, se endereza y crece */
-  .hero-collage:hover .hero-card{filter:brightness(.85) saturate(.85)}
-  .hero-collage .hero-card:hover{z-index:10;filter:none;transform:rotate(0deg) translate(0,-8px) scale(1.04);box-shadow:0 45px 90px -20px rgba(14,42,52,0.55),0 20px 40px -10px rgba(14,42,52,0.25);animation-play-state:paused,paused;transition:transform .5s cubic-bezier(.22,.61,.36,1),filter .4s ease,box-shadow .4s ease,z-index 0s}
-  .hero-collage .hero-card:hover img{transform:scale(1.08)}
-  /* Etiqueta pequeña editorial (esquina de main) */
-  .hero-card--main::before{content:'01';position:absolute;top:14px;left:16px;font-size:11px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:5px 10px;border-radius:6px;z-index:4;font-family:inherit}
-  .hero-card--tr::before{content:'02';position:absolute;top:12px;left:14px;font-size:10px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px 9px;border-radius:6px;z-index:4}
-  .hero-card--br::before{content:'03';position:absolute;top:12px;left:14px;font-size:10px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px 9px;border-radius:6px;z-index:4}
-  /* Ken Burns muy sutil en todas */
-  .hero-card img{animation:cardKen 18s ease-in-out infinite alternate}
-  .hero-card--tr img{animation-name:cardKenB;animation-duration:20s}
-  .hero-card--br img{animation-name:cardKenC;animation-duration:22s}
-  @keyframes cardKen{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(-1%,-1.5%)}}
-  @keyframes cardKenB{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(1.5%,-1%)}}
-  @keyframes cardKenC{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(0,-2%)}}
+  /* Living composition — movimiento constante, individual transforms para composición limpia */
+  .hero-collage{position:relative;z-index:2;width:100%;height:100%;perspective:1600px;transform-style:preserve-3d}
+  .hero-card{position:absolute;overflow:hidden;border-radius:20px;background:#0e2a34;box-shadow:0 30px 60px -18px rgba(14,42,52,0.42),0 12px 28px -8px rgba(14,42,52,0.18);transform-style:preserve-3d;transform-origin:center center;will-change:translate,rotate,scale,filter;transition:filter .5s ease,box-shadow .5s ease,z-index 0s .3s}
+  .hero-card::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.10);pointer-events:none;z-index:3}
+  .hero-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.03);will-change:translate,scale;transition:filter .5s ease}
+  /* Posición y órbita — main (grande, top-left) */
+  .hero-card--main{top:0;left:0;width:64%;height:74%;z-index:2;translate:0 0;rotate:-1.4deg;scale:1;animation:orbitMain 13s cubic-bezier(.45,.05,.55,.95) infinite,rotMain 17s ease-in-out infinite,breatheMain 5.5s ease-in-out infinite}
+  .hero-card--tr{top:4%;right:0;width:44%;height:52%;z-index:3;translate:0 0;rotate:2.2deg;scale:1;animation:orbitTR 11s cubic-bezier(.45,.05,.55,.95) infinite,rotTR 14s ease-in-out infinite,breatheTR 4.7s ease-in-out infinite}
+  .hero-card--br{bottom:0;right:6%;width:56%;height:48%;z-index:4;translate:0 0;rotate:-1.6deg;scale:1;animation:orbitBR 16s cubic-bezier(.45,.05,.55,.95) infinite,rotBR 19s ease-in-out infinite,breatheBR 6.3s ease-in-out infinite}
+  /* Órbitas — trayectoria elíptica cerrada, distinta para cada card */
+  @keyframes orbitMain{0%{translate:0 0}25%{translate:-10px 6px}50%{translate:-4px 14px}75%{translate:8px 8px}100%{translate:0 0}}
+  @keyframes orbitTR{0%{translate:0 0}25%{translate:9px -8px}50%{translate:14px 2px}75%{translate:4px 10px}100%{translate:0 0}}
+  @keyframes orbitBR{0%{translate:0 0}25%{translate:-12px -6px}50%{translate:-6px -12px}75%{translate:6px -8px}100%{translate:0 0}}
+  /* Rotación oscilante — la card "respira" en ángulo */
+  @keyframes rotMain{0%,100%{rotate:-1.4deg}50%{rotate:-.2deg}}
+  @keyframes rotTR{0%,100%{rotate:2.2deg}50%{rotate:1.2deg}}
+  @keyframes rotBR{0%,100%{rotate:-1.6deg}50%{rotate:-.6deg}}
+  /* Breathing scale — sutil bombeo de vida */
+  @keyframes breatheMain{0%,100%{scale:1}50%{scale:1.015}}
+  @keyframes breatheTR{0%,100%{scale:1}50%{scale:1.02}}
+  @keyframes breatheBR{0%,100%{scale:1}50%{scale:1.017}}
+  /* Ken Burns continuo en las imágenes internas — pan + zoom lento */
+  .hero-card img{scale:1.08;translate:0 0;animation:kenA 22s ease-in-out infinite alternate}
+  .hero-card--tr img{animation-name:kenB;animation-duration:25s}
+  .hero-card--br img{animation-name:kenC;animation-duration:27s}
+  @keyframes kenA{from{scale:1.06;translate:0 0}to{scale:1.14;translate:-2% -2%}}
+  @keyframes kenB{from{scale:1.06;translate:0 0}to{scale:1.14;translate:2% -1.5%}}
+  @keyframes kenC{from{scale:1.06;translate:0 0}to{scale:1.14;translate:-1% -2.5%}}
+  /* Hover — la card apuntada gana foco (se endereza, escala, sombra profunda); las demás se atenúan */
+  .hero-collage:hover .hero-card{filter:brightness(.72) saturate(.75)}
+  .hero-collage .hero-card:hover{z-index:20;filter:none;rotate:0deg;scale:1.045;box-shadow:0 55px 110px -25px rgba(14,42,52,0.6),0 20px 40px -10px rgba(14,42,52,0.28);animation-play-state:paused,paused,paused;transition:filter .4s ease,box-shadow .4s ease,rotate .5s cubic-bezier(.22,.61,.36,1),scale .5s cubic-bezier(.22,.61,.36,1),z-index 0s}
+  .hero-collage .hero-card:hover img{animation-play-state:paused;scale:1.15}
   @media (prefers-reduced-motion:reduce){
-    .hero-card,.hero-card img{animation:none!important;transform:none!important}
-    .hero-card--main{transform:rotate(-1.4deg)!important}
-    .hero-card--tr{transform:rotate(2.2deg)!important}
-    .hero-card--br{transform:rotate(-1.6deg)!important}
+    .hero-card,.hero-card img{animation:none!important}
+    .hero-card--main{translate:0 0;rotate:-1.4deg;scale:1}
+    .hero-card--tr{translate:0 0;rotate:2.2deg;scale:1}
+    .hero-card--br{translate:0 0;rotate:-1.6deg;scale:1}
+    .hero-card img{scale:1.06;translate:0 0}
   }
-  /* Mobile — apilar en columna vertical con overlap */
   @media (max-width:900px){
     .hero-collage{height:auto;aspect-ratio:1/1.1}
     .hero-card--main{top:0;left:2%;width:78%;height:62%}
