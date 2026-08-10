@@ -374,15 +374,23 @@
 
   /* TESTIMONIOS */
   .testimonios{background:#fff}
-  .test-card{max-width:920px;margin:0 auto;background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:44px;display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,0.04)}
-  .test-photo{width:180px;height:180px;border-radius:50%;overflow:hidden;background:var(--teal-light);flex-shrink:0}
-  .test-photo img{width:100%;height:100%;object-fit:cover}
-  .test-content{}
-  .test-quote{font-size:16px;font-weight:400;color:#3a3a3a;line-height:1.7;margin-bottom:18px;font-style:italic;position:relative;padding-left:20px;border-left:3px solid var(--teal)}
-  .test-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:.01em}
-  .test-role{font-size:12.5px;color:var(--muted);margin-bottom:14px}
-  .test-video{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--teal-dark);padding:8px 18px;border-radius:980px;background:var(--teal-light);transition:all .2s}
-  .test-video:hover{background:var(--teal);color:#fff}
+  .test-carousel{max-width:920px;margin:0 auto;position:relative}
+  .test-viewport{position:relative;background:var(--bg-soft);border:1px solid var(--border);border-radius:18px;padding:56px 64px 52px;box-shadow:0 4px 24px rgba(0,0,0,0.05);overflow:hidden;min-height:280px}
+  .test-track{position:relative;min-height:180px}
+  .test-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease,visibility 0s linear .7s;display:flex;flex-direction:column;justify-content:center}
+  .test-slide.is-active{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .7s ease,transform .7s ease,visibility 0s linear 0s}
+  .test-mark{position:absolute;top:-6px;left:-8px;width:56px;height:56px;color:var(--teal);opacity:.14}
+  .test-quote{font-size:19px;font-weight:400;color:#2a2a2a;line-height:1.65;margin:0 0 26px;font-style:italic;letter-spacing:.005em;max-width:62ch}
+  .test-meta{display:flex;align-items:center;gap:14px}
+  .test-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;letter-spacing:.02em;flex-shrink:0;box-shadow:0 2px 8px rgba(0,78,116,.25)}
+  .test-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:.01em;line-height:1.2}
+  .test-role{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .test-dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
+  .test-dot{width:8px;height:8px;border-radius:50%;background:#d5dee4;border:none;padding:0;cursor:pointer;transition:all .3s ease}
+  .test-dot:hover{background:#a8b8c2}
+  .test-dot.is-active{background:var(--teal-dark);width:24px;border-radius:4px}
+  .test-source{display:block;text-align:center;margin-top:20px;font-size:13px;font-weight:600;color:var(--teal-dark);letter-spacing:.01em;transition:opacity .2s}
+  .test-source:hover{opacity:.75}
 
   /* SUB-MARCAS */
   .subs{background:var(--bg-soft)}
@@ -632,9 +640,9 @@
     .benchmark-node{width:44px;height:44px;font-size:13.5px}
     .benchmark-marker.is-luvasa .benchmark-node{width:64px;height:64px;font-size:20px}
     .benchmark-label{font-size:11px;top:calc(100% + 10px)}
-    .test-card{grid-template-columns:1fr;padding:30px 24px;gap:22px;text-align:center}
-    .test-photo{margin:0 auto;width:140px;height:140px}
-    .test-quote{padding-left:0;border-left:none;padding:14px;background:#fff;border-radius:10px;text-align:left}
+    .test-viewport{padding:40px 32px 36px;min-height:260px}
+    .test-mark{width:44px;height:44px;top:-2px;left:-2px}
+    .test-quote{font-size:17px;line-height:1.6;margin-bottom:22px}
     .subs-grid{grid-template-columns:1fr}
     .sub-card{padding:34px 28px}
     .sub-card-featured{padding:0}
@@ -747,9 +755,12 @@
     .benchmark-node{width:40px;height:40px;font-size:12.5px}
     .benchmark-marker.is-luvasa .benchmark-node{width:56px;height:56px;font-size:17px}
     .benchmark-label{font-size:10px}
-    .test-card{padding:26px 20px;gap:18px;border-radius:14px}
-    .test-photo{width:120px;height:120px}
-    .test-quote{font-size:14.5px}
+    .test-viewport{padding:32px 24px 30px;border-radius:14px;min-height:280px}
+    .test-mark{width:36px;height:36px}
+    .test-quote{font-size:15.5px;line-height:1.6;margin-bottom:20px}
+    .test-avatar{width:38px;height:38px;font-size:14px}
+    .test-name{font-size:14px}
+    .test-role{font-size:11.5px}
     .sub-card{padding:30px 22px;border-radius:12px}
     .sub-desc{font-size:14px}
     .sub-cta{padding:12px 22px;min-height:44px}
@@ -1347,17 +1358,101 @@
       <div class="sec-eyebrow">Lo que dicen nuestros asegurados</div>
       <h2 class="sec-h2">Historias reales, resultados <span class="accent">reales.</span></h2>
     </div>
-    <div class="test-card">
-      <div class="test-photo"><img src="assets/img/testimonio-clara.jpg" alt="Clara Castro"></div>
-      <div class="test-content">
-        <div class="test-quote">"Atendida por el Equipo Luvasa en acompañamiento a Cáncer de Mama. Una experiencia de servicio que marcó la diferencia en el momento más difícil."</div>
-        <div class="test-name">Clara Castro</div>
-        <div class="test-role">Asegurada Luvasa</div>
-        <a href="#" class="test-video">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Escucha su testimonio
-        </a>
+    <div class="test-carousel" id="testCarousel" aria-roledescription="carrusel" aria-label="Testimonios de asegurados">
+      <div class="test-viewport">
+        <div class="test-track" id="testTrack">
+          <article class="test-slide is-active">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">La atención de Luis López fue excelente. A la hora que fuera me respondía y me resolvía; todo el tiempo estuvo pendiente de mi caso.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">F</div>
+              <div>
+                <div class="test-name">Fernanda</div>
+                <div class="test-role">Asegurada Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Excelente gestión. Yo solo me ocupé de esperar al operador; de todo lo demás se encargaron ellos.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">L</div>
+              <div>
+                <div class="test-name">Leticia</div>
+                <div class="test-role">Asegurada Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Excelente trato, muy cordial, y me mantuvo informado en todo momento.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">R</div>
+              <div>
+                <div class="test-name">Rafael</div>
+                <div class="test-role">Asegurado Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Excelente servicio y un extraordinario seguimiento.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">A</div>
+              <div>
+                <div class="test-name">Alejandra</div>
+                <div class="test-role">Asegurada Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Siempre estuvo atento a mis preguntas y al pendiente del seguimiento de mi caso.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">V</div>
+              <div>
+                <div class="test-name">Vicente</div>
+                <div class="test-role">Asegurado Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Seguimiento oportuno y muy personalizado de principio a fin.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">A</div>
+              <div>
+                <div class="test-name">Alejandro</div>
+                <div class="test-role">Asegurado Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">El servicio fue muy amable y claro con toda la información.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">P</div>
+              <div>
+                <div class="test-name">Pablo</div>
+                <div class="test-role">Asegurado Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+          <article class="test-slide">
+            <svg class="test-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Zm14 0h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V10a2 2 0 0 0 0-2Z"/></svg>
+            <p class="test-quote">Brindan un excelente servicio en cuanto a la atención y el seguimiento a reparaciones.</p>
+            <div class="test-meta">
+              <div class="test-avatar" aria-hidden="true">R</div>
+              <div>
+                <div class="test-name">Roberto</div>
+                <div class="test-role">Asegurado Luvasa · Calificación 10/10</div>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
+      <div class="test-dots" id="testDots" role="tablist" aria-label="Seleccionar testimonio"></div>
+      <a class="test-source" href="/siniestros-autos/">Ver reporte completo de satisfacción &rarr;</a>
     </div>
   </div>
 </section>
@@ -1727,6 +1822,48 @@
       });
     }, { threshold: 0.25 });
     observer.observe(section);
+  })();
+
+  /* Testimonial carousel */
+  (function(){
+    var root = document.getElementById('testCarousel');
+    if (!root) return;
+    var slides = root.querySelectorAll('.test-slide');
+    var dotsWrap = document.getElementById('testDots');
+    if (!slides.length || !dotsWrap) return;
+    var idx = 0, timer = null, interval = 6000;
+
+    slides.forEach(function(_, i){
+      var b = document.createElement('button');
+      b.className = 'test-dot' + (i === 0 ? ' is-active' : '');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Testimonio ' + (i + 1));
+      b.addEventListener('click', function(){ go(i); restart(); });
+      dotsWrap.appendChild(b);
+    });
+    var dots = dotsWrap.querySelectorAll('.test-dot');
+
+    function go(next){
+      if (next === idx) return;
+      slides[idx].classList.remove('is-active');
+      dots[idx].classList.remove('is-active');
+      idx = (next + slides.length) % slides.length;
+      slides[idx].classList.add('is-active');
+      dots[idx].classList.add('is-active');
+    }
+    function tick(){ go(idx + 1); }
+    function start(){ timer = setInterval(tick, interval); }
+    function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+    function restart(){ stop(); start(); }
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) stop(); else start();
+    });
+    start();
   })();
 </script>
 
