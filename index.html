@@ -64,8 +64,28 @@
   @keyframes haloPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
   /* Subtle decorative outline offset */
   .hero-visual-frame{position:absolute;top:-14px;right:-14px;width:calc(100% - 32px);height:calc(100% - 32px);border:1.5px solid rgba(0,78,116,0.18);border-radius:24px;z-index:1;pointer-events:none}
-  .hero-visual-photo{position:relative;z-index:2;width:100%;height:100%;overflow:hidden;border-radius:24px;box-shadow:0 50px 100px -30px rgba(14,42,52,0.35),0 20px 40px -12px rgba(14,42,52,0.15),0 4px 12px rgba(14,42,52,0.05)}
-  .hero-visual-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.02)}
+  .hero-visual-photo{position:relative;z-index:2;width:100%;height:100%;overflow:hidden;border-radius:24px;box-shadow:0 50px 100px -30px rgba(14,42,52,0.35),0 20px 40px -12px rgba(14,42,52,0.15),0 4px 12px rgba(14,42,52,0.05);background:#0e2a34}
+  .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1);pointer-events:none;will-change:opacity}
+  .hero-slide.is-active{opacity:1;pointer-events:auto;z-index:2}
+  .hero-slide img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.02);transform:scale(1);transform-origin:center center;will-change:transform}
+  .hero-slide.is-active img{animation:kenBurns 9s cubic-bezier(.22,.61,.36,1) forwards}
+  @keyframes kenBurns{0%{transform:scale(1.02) translate(0,0)}100%{transform:scale(1.10) translate(-1.2%,-0.8%)}}
+  .hero-slide:nth-child(2).is-active img{animation-name:kenBurnsAlt}
+  @keyframes kenBurnsAlt{0%{transform:scale(1.02) translate(0,0)}100%{transform:scale(1.10) translate(1.2%,-0.6%)}}
+  .hero-slide:nth-child(3).is-active img{animation-name:kenBurnsThird}
+  @keyframes kenBurnsThird{0%{transform:scale(1.03) translate(0,0)}100%{transform:scale(1.10) translate(0,-1%)}}
+  .hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(14,42,52,0.28) 100%);pointer-events:none;z-index:1}
+  .hero-nav{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;gap:10px;z-index:5;pointer-events:auto}
+  .hero-nav-dot{width:28px;height:4px;border-radius:3px;background:rgba(255,255,255,0.35);border:none;padding:0;cursor:pointer;overflow:hidden;position:relative;transition:background .3s ease}
+  .hero-nav-dot:hover{background:rgba(255,255,255,0.55)}
+  .hero-nav-dot::after{content:'';position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left center;transition:transform .3s ease}
+  .hero-nav-dot.is-active{background:rgba(255,255,255,0.25)}
+  .hero-nav-dot.is-active::after{transform:scaleX(1);transition:transform 7s linear}
+  @media (prefers-reduced-motion:reduce){
+    .hero-slide.is-active img{animation:none;transform:scale(1.02)}
+    .hero-slide{transition-duration:.3s}
+    .hero-nav-dot.is-active::after{transition:none;transform:scaleX(1)}
+  }
 
   /* SECTIONS */
   .section{padding:90px 40px;position:relative}
@@ -755,10 +775,63 @@
     </div>
     <div class="hero-visual">
       <div class="hero-visual-frame"></div>
-      <div class="hero-visual-photo">
-        <img src="assets/img/portada.png?v=3" alt="Familia protegida por Luvasa" loading="eager">
+      <div class="hero-visual-photo" id="heroCarousel" aria-roledescription="carrusel">
+        <div class="hero-slide is-active" aria-hidden="false">
+          <img src="assets/img/portada-1.jpg?v=1" alt="Familia protegida por Luvasa" loading="eager" fetchpriority="high">
+        </div>
+        <div class="hero-slide" aria-hidden="true">
+          <img src="assets/img/portada-2.jpg?v=1" alt="Asesoría personalizada en seguros" loading="eager">
+        </div>
+        <div class="hero-slide" aria-hidden="true">
+          <img src="assets/img/portada-3.jpg?v=1" alt="Tranquilidad para tu patrimonio" loading="eager">
+        </div>
+        <div class="hero-nav" role="tablist" aria-label="Navegación del carrusel">
+          <button type="button" class="hero-nav-dot is-active" data-slide="0" aria-label="Ir a portada 1" role="tab" aria-selected="true"></button>
+          <button type="button" class="hero-nav-dot" data-slide="1" aria-label="Ir a portada 2" role="tab" aria-selected="false"></button>
+          <button type="button" class="hero-nav-dot" data-slide="2" aria-label="Ir a portada 3" role="tab" aria-selected="false"></button>
+        </div>
       </div>
     </div>
+    <script>
+      (function(){
+        var carousel = document.getElementById('heroCarousel');
+        if (!carousel) return;
+        var slides = carousel.querySelectorAll('.hero-slide');
+        var dots = carousel.querySelectorAll('.hero-nav-dot');
+        if (slides.length < 2) return;
+        var current = 0;
+        var timer = null;
+        var INTERVAL = 7000;
+
+        function goTo(idx){
+          if (idx === current) return;
+          slides[current].classList.remove('is-active');
+          slides[current].setAttribute('aria-hidden','true');
+          dots[current].classList.remove('is-active');
+          dots[current].setAttribute('aria-selected','false');
+          current = idx;
+          slides[current].classList.add('is-active');
+          slides[current].setAttribute('aria-hidden','false');
+          dots[current].classList.add('is-active');
+          dots[current].setAttribute('aria-selected','true');
+        }
+        function next(){ goTo((current + 1) % slides.length); }
+        function start(){ stop(); timer = setInterval(next, INTERVAL); }
+        function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+        dots.forEach(function(dot, i){
+          dot.addEventListener('click', function(){ goTo(i); start(); });
+        });
+        carousel.addEventListener('mouseenter', stop);
+        carousel.addEventListener('mouseleave', start);
+        document.addEventListener('visibilitychange', function(){
+          if (document.hidden) stop(); else start();
+        });
+
+        // Reset del progreso del dot cuando la pestaña vuelve a foco
+        start();
+      })();
+    </script>
   </div>
 </section>
 
