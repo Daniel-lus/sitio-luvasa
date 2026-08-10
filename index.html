@@ -64,27 +64,51 @@
   @keyframes haloPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
   /* Subtle decorative outline offset */
   .hero-visual-frame{position:absolute;top:-14px;right:-14px;width:calc(100% - 32px);height:calc(100% - 32px);border:1.5px solid rgba(0,78,116,0.18);border-radius:24px;z-index:1;pointer-events:none}
-  .hero-visual-photo{position:relative;z-index:2;width:100%;height:100%;overflow:hidden;border-radius:24px;box-shadow:0 50px 100px -30px rgba(14,42,52,0.35),0 20px 40px -12px rgba(14,42,52,0.15),0 4px 12px rgba(14,42,52,0.05);background:#0e2a34}
-  .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1);pointer-events:none;will-change:opacity}
-  .hero-slide.is-active{opacity:1;pointer-events:auto;z-index:2}
-  .hero-slide img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.02);transform:scale(1);transform-origin:center center;will-change:transform}
-  .hero-slide.is-active img{animation:kenBurns 9s cubic-bezier(.22,.61,.36,1) forwards}
-  @keyframes kenBurns{0%{transform:scale(1.02) translate(0,0)}100%{transform:scale(1.10) translate(-1.2%,-0.8%)}}
-  .hero-slide:nth-child(2).is-active img{animation-name:kenBurnsAlt}
-  @keyframes kenBurnsAlt{0%{transform:scale(1.02) translate(0,0)}100%{transform:scale(1.10) translate(1.2%,-0.6%)}}
-  .hero-slide:nth-child(3).is-active img{animation-name:kenBurnsThird}
-  @keyframes kenBurnsThird{0%{transform:scale(1.03) translate(0,0)}100%{transform:scale(1.10) translate(0,-1%)}}
-  .hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(14,42,52,0.28) 100%);pointer-events:none;z-index:1}
-  .hero-nav{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;gap:10px;z-index:5;pointer-events:auto}
-  .hero-nav-dot{width:28px;height:4px;border-radius:3px;background:rgba(255,255,255,0.35);border:none;padding:0;cursor:pointer;overflow:hidden;position:relative;transition:background .3s ease}
-  .hero-nav-dot:hover{background:rgba(255,255,255,0.55)}
-  .hero-nav-dot::after{content:'';position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left center;transition:transform .3s ease}
-  .hero-nav-dot.is-active{background:rgba(255,255,255,0.25)}
-  .hero-nav-dot.is-active::after{transform:scaleX(1);transition:transform 7s linear}
+  /* Collage editorial — 3 imágenes con profundidad, parallax y entrada cinemática */
+  .hero-collage{position:relative;z-index:2;width:100%;height:100%;perspective:1400px;transform-style:preserve-3d}
+  .hero-card{position:absolute;overflow:hidden;border-radius:20px;background:#0e2a34;box-shadow:0 30px 60px -18px rgba(14,42,52,0.42),0 12px 28px -8px rgba(14,42,52,0.18);will-change:transform,filter;transition:transform .7s cubic-bezier(.22,.61,.36,1),filter .5s ease,box-shadow .5s ease,z-index 0s .3s;transform-origin:center center}
+  .hero-card::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);pointer-events:none;z-index:3}
+  .hero-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.04) contrast(1.02);transform:scale(1.05);transition:transform 1.2s cubic-bezier(.22,.61,.36,1);will-change:transform}
+  .hero-card--main{top:0;left:0;width:64%;height:74%;z-index:2;--rot:-1.4deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatMain 9s ease-in-out infinite alternate 1.2s}
+  .hero-card--tr{top:4%;right:0;width:44%;height:52%;z-index:3;--rot:2.2deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatTR 8s ease-in-out infinite alternate 1.4s}
+  .hero-card--br{bottom:0;right:6%;width:56%;height:48%;z-index:4;--rot:-1.6deg;--tx:0;--ty:0;transform:rotate(var(--rot)) translate(var(--tx),var(--ty));animation:cardFloatBR 10s ease-in-out infinite alternate 1s}
+  @keyframes cardFloatMain{from{transform:rotate(-1.4deg) translate(0,0)}to{transform:rotate(-.6deg) translate(0,-9px)}}
+  @keyframes cardFloatTR{from{transform:rotate(2.2deg) translate(0,0)}to{transform:rotate(1.6deg) translate(0,7px)}}
+  @keyframes cardFloatBR{from{transform:rotate(-1.6deg) translate(0,0)}to{transform:rotate(-.8deg) translate(0,-6px)}}
+  /* Entrada cinemática — cada card entra desde un ángulo distinto */
+  .hero-card--main{animation:cardFloatMain 9s ease-in-out infinite alternate 1.2s,mainEnter 1.1s cubic-bezier(.22,.61,.36,1) both}
+  .hero-card--tr{animation:cardFloatTR 8s ease-in-out infinite alternate 1.4s,trEnter 1.1s cubic-bezier(.22,.61,.36,1) .25s both}
+  .hero-card--br{animation:cardFloatBR 10s ease-in-out infinite alternate 1s,brEnter 1.1s cubic-bezier(.22,.61,.36,1) .5s both}
+  @keyframes mainEnter{from{opacity:0;transform:rotate(-6deg) translate(-30px,20px) scale(.92)}to{opacity:1;transform:rotate(-1.4deg) translate(0,0) scale(1)}}
+  @keyframes trEnter{from{opacity:0;transform:rotate(9deg) translate(40px,-30px) scale(.9)}to{opacity:1;transform:rotate(2.2deg) translate(0,0) scale(1)}}
+  @keyframes brEnter{from{opacity:0;transform:rotate(-8deg) translate(20px,50px) scale(.9)}to{opacity:1;transform:rotate(-1.6deg) translate(0,0) scale(1)}}
+  /* Hover — la card se sale del stack, se endereza y crece */
+  .hero-collage:hover .hero-card{filter:brightness(.85) saturate(.85)}
+  .hero-collage .hero-card:hover{z-index:10;filter:none;transform:rotate(0deg) translate(0,-8px) scale(1.04);box-shadow:0 45px 90px -20px rgba(14,42,52,0.55),0 20px 40px -10px rgba(14,42,52,0.25);animation-play-state:paused,paused;transition:transform .5s cubic-bezier(.22,.61,.36,1),filter .4s ease,box-shadow .4s ease,z-index 0s}
+  .hero-collage .hero-card:hover img{transform:scale(1.08)}
+  /* Etiqueta pequeña editorial (esquina de main) */
+  .hero-card--main::before{content:'01';position:absolute;top:14px;left:16px;font-size:11px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:5px 10px;border-radius:6px;z-index:4;font-family:inherit}
+  .hero-card--tr::before{content:'02';position:absolute;top:12px;left:14px;font-size:10px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px 9px;border-radius:6px;z-index:4}
+  .hero-card--br::before{content:'03';position:absolute;top:12px;left:14px;font-size:10px;font-weight:600;letter-spacing:.24em;color:#fff;background:rgba(14,42,52,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px 9px;border-radius:6px;z-index:4}
+  /* Ken Burns muy sutil en todas */
+  .hero-card img{animation:cardKen 18s ease-in-out infinite alternate}
+  .hero-card--tr img{animation-name:cardKenB;animation-duration:20s}
+  .hero-card--br img{animation-name:cardKenC;animation-duration:22s}
+  @keyframes cardKen{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(-1%,-1.5%)}}
+  @keyframes cardKenB{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(1.5%,-1%)}}
+  @keyframes cardKenC{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.12) translate(0,-2%)}}
   @media (prefers-reduced-motion:reduce){
-    .hero-slide.is-active img{animation:none;transform:scale(1.02)}
-    .hero-slide{transition-duration:.3s}
-    .hero-nav-dot.is-active::after{transition:none;transform:scaleX(1)}
+    .hero-card,.hero-card img{animation:none!important;transform:none!important}
+    .hero-card--main{transform:rotate(-1.4deg)!important}
+    .hero-card--tr{transform:rotate(2.2deg)!important}
+    .hero-card--br{transform:rotate(-1.6deg)!important}
+  }
+  /* Mobile — apilar en columna vertical con overlap */
+  @media (max-width:900px){
+    .hero-collage{height:auto;aspect-ratio:1/1.1}
+    .hero-card--main{top:0;left:2%;width:78%;height:62%}
+    .hero-card--tr{top:38%;right:0;width:44%;height:34%}
+    .hero-card--br{bottom:0;right:8%;width:66%;height:42%}
   }
 
   /* SECTIONS */
@@ -774,64 +798,18 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-visual-frame"></div>
-      <div class="hero-visual-photo" id="heroCarousel" aria-roledescription="carrusel">
-        <div class="hero-slide is-active" aria-hidden="false">
-          <img src="assets/img/portada-1.jpg?v=1" alt="Familia protegida por Luvasa" loading="eager" fetchpriority="high">
-        </div>
-        <div class="hero-slide" aria-hidden="true">
-          <img src="assets/img/portada-2.jpg?v=1" alt="Asesoría personalizada en seguros" loading="eager">
-        </div>
-        <div class="hero-slide" aria-hidden="true">
-          <img src="assets/img/portada-3.jpg?v=1" alt="Tranquilidad para tu patrimonio" loading="eager">
-        </div>
-        <div class="hero-nav" role="tablist" aria-label="Navegación del carrusel">
-          <button type="button" class="hero-nav-dot is-active" data-slide="0" aria-label="Ir a portada 1" role="tab" aria-selected="true"></button>
-          <button type="button" class="hero-nav-dot" data-slide="1" aria-label="Ir a portada 2" role="tab" aria-selected="false"></button>
-          <button type="button" class="hero-nav-dot" data-slide="2" aria-label="Ir a portada 3" role="tab" aria-selected="false"></button>
-        </div>
+      <div class="hero-collage" id="heroCollage">
+        <figure class="hero-card hero-card--main">
+          <img src="assets/img/portada-1.jpg?v=2" alt="Familia protegida por Luvasa" loading="eager" fetchpriority="high">
+        </figure>
+        <figure class="hero-card hero-card--tr">
+          <img src="assets/img/portada-2.jpg?v=2" alt="Asesoría personalizada en seguros" loading="eager">
+        </figure>
+        <figure class="hero-card hero-card--br">
+          <img src="assets/img/portada-3.jpg?v=2" alt="Tranquilidad para tu patrimonio" loading="eager">
+        </figure>
       </div>
     </div>
-    <script>
-      (function(){
-        var carousel = document.getElementById('heroCarousel');
-        if (!carousel) return;
-        var slides = carousel.querySelectorAll('.hero-slide');
-        var dots = carousel.querySelectorAll('.hero-nav-dot');
-        if (slides.length < 2) return;
-        var current = 0;
-        var timer = null;
-        var INTERVAL = 7000;
-
-        function goTo(idx){
-          if (idx === current) return;
-          slides[current].classList.remove('is-active');
-          slides[current].setAttribute('aria-hidden','true');
-          dots[current].classList.remove('is-active');
-          dots[current].setAttribute('aria-selected','false');
-          current = idx;
-          slides[current].classList.add('is-active');
-          slides[current].setAttribute('aria-hidden','false');
-          dots[current].classList.add('is-active');
-          dots[current].setAttribute('aria-selected','true');
-        }
-        function next(){ goTo((current + 1) % slides.length); }
-        function start(){ stop(); timer = setInterval(next, INTERVAL); }
-        function stop(){ if(timer){ clearInterval(timer); timer = null; } }
-
-        dots.forEach(function(dot, i){
-          dot.addEventListener('click', function(){ goTo(i); start(); });
-        });
-        carousel.addEventListener('mouseenter', stop);
-        carousel.addEventListener('mouseleave', start);
-        document.addEventListener('visibilitychange', function(){
-          if (document.hidden) stop(); else start();
-        });
-
-        // Reset del progreso del dot cuando la pestaña vuelve a foco
-        start();
-      })();
-    </script>
   </div>
 </section>
 
