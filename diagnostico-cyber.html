@@ -301,10 +301,59 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   .expo,.wa-card{position:static}
   .qhead{grid-template-columns:1fr}.scene{display:none}
 }
+@media (max-width:720px){
+  section{padding:2.6rem 0}
+  header .wrap{height:60px}
+  .brand-logo{height:34px}
+  .brand-name{font-size:.95rem}
+  .brand-sub{font-size:.62rem}
+  .hero{padding:2.4rem 0 3rem}
+  .hero .wrap{gap:1.8rem}
+  .hero h1{font-size:2rem;margin:.6rem 0 .9rem}
+  .hero .lead{font-size:1rem;margin-bottom:1.4rem}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:.7rem}
+  .hero-actions .btn{width:100%}
+  .hero-note{text-align:center;margin-top:.3rem}
+  .picto{padding:1.2rem;border-radius:18px}
+  .picto-grid{grid-template-columns:repeat(8,1fr);gap:6px}
+  .picto-big{font-size:1.9rem}
+  #quiz{padding:1.2rem 0 3rem}
+  .quiz-top{gap:.6rem;margin-bottom:1rem}
+  .quiz-step{font-size:.78rem}
+  .progress{height:9px}
+  .qcard{border-radius:20px}
+  .qhead{padding:1.3rem 1.2rem;gap:.8rem}
+  .qhead h2{font-size:1.2rem}
+  .qhead p{font-size:.88rem;margin-top:.35rem}
+  .qhead .kicker{font-size:.72rem;padding:.25rem .7rem;margin-bottom:.6rem}
+  .qbody{padding:1.2rem 1rem 1.4rem}
+  .opts,.opts.multi{grid-template-columns:1fr;gap:.65rem}
+  .opt{padding:.95rem 1rem;min-height:0;border-radius:14px;gap:.55rem}
+  .opt .oic{width:40px;height:40px;border-radius:11px}
+  .opt b{font-size:.98rem}
+  .opt small{font-size:.83rem}
+  .opt.wide{gap:.9rem}
+  .qtip{padding:.75rem .9rem;font-size:.83rem;margin-top:1rem;border-radius:12px}
+  .qtip .ic{flex:0 0 30px;height:30px;border-radius:8px}
+  .qfoot{flex-direction:column-reverse;align-items:stretch;gap:.6rem;margin-top:1.3rem}
+  .qfoot .btn{width:100%;padding:1.05rem 1.4rem;font-size:1rem}
+  .btn{padding:.9rem 1.4rem;font-size:.95rem}
+  .btn-lg{padding:1.05rem 1.6rem;font-size:1rem}
+  .cta-band .wrap{grid-template-columns:1fr;gap:1.4rem;text-align:center}
+  .cta-meta{justify-content:center;gap:1rem}
+  .res-hero{padding:2.4rem 0}
+  .res-hero .wrap{gap:1.6rem}
+  .gauge{width:190px;height:190px}
+  .gauge .num b{font-size:2.8rem}
+  .res-actions{flex-direction:column;align-items:stretch;gap:.6rem}
+  .res-actions .btn{width:100%}
+  .contact{padding:2.4rem 0}
+  .form{padding:1.4rem;border-radius:18px}
+  .form h3{font-size:1.15rem}
+}
 @media (max-width:560px){
   .stats,.areas,.prof-table,.cov-grid,.fgrid{grid-template-columns:1fr}
   .header-cta{display:none}.meter{display:none}
-  .qfoot{flex-direction:column-reverse;align-items:stretch}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 .print-head,.print-foot,.pf{display:none}
@@ -913,7 +962,7 @@ function pick(i){
     if(o.exclusive) a=a.includes(o.v)?[]:[o.v];
     else { a=a.filter(v=>!q.opts.find(x=>x.v===v)?.exclusive); a=a.includes(o.v)?a.filter(v=>v!==o.v):[...a,o.v]; }
     answers[q.id]=a; renderQ();
-  } else { answers[q.id]=o.v; renderQ(); setTimeout(next,280); }
+  } else { answers[q.id]=o.v; renderQ(); }
 }
 function prev(){ if(step>0){ step--; renderQ(); } }
 function next(){ if(!hasAnswer(Q[step])) return; if(step<Q.length-1){ step++; renderQ(); } else { compute(); renderResult(); } }
